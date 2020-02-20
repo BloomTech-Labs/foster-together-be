@@ -62,3 +62,7 @@ typings/
 
 # SSL
 *.pem
+
+#lock files
+package-lock.json
+*.lock
