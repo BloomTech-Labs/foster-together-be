@@ -6,20 +6,18 @@
 
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### Backend deployed at [Heroku](https://foster-together-back.herokuapp.com/) <br>
 
 ## 1️⃣ Getting started
 
 To get the server running locally:
 
-🚫 adjust these scripts to match your project
-
 - Clone this repo
-- **yarn install** to install all required dependencies
-- **yarn server** to start the local server
-- **yarn test** to start server using testing environment
+- `npm i` to install all required dependencies
+- `npm run server` to start the local server
+- `npm test` to start server using testing environment
 
-### Backend framework goes here
+### Express.js
 
 🚫 Why did you choose this framework?
 
@@ -30,7 +28,7 @@ To get the server running locally:
 
 ## 2️⃣ Endpoints
 
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
+🚫This is a placeholder, replace the endpoints, access control, and descriptioin to match your project
 
 #### Organization Routes
 
@@ -121,14 +119,11 @@ To get the server running locally:
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-
-🚫 These are just examples, replace them with the specifics for your app
     
-    *  STAGING_DB - optional development db for using functionality not available in SQLite
+    *  PORT - optional
     *  NODE_ENV - set to "development" until ready for "production"
     *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    *  SENDGRID_API_KEY - this is generated in your Sendgrid account
-    *  stripe_secret - this is generated in the Stripe dashboard
+    *  SSL_PASSPHRASE - determined when generating an OpenSSL key on your local machine
     
 ## Contributing
 
@@ -168,5 +163,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
-🚫 Add DS iOS and/or Andriod links here if applicable.
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/foster-together-fe#readme) for details on the frontend of our project.
