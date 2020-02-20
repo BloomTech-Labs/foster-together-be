@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.",
   "main": "index.js",
-  "scripts": {
+	"scripts": {
+    "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "test": "jest --detectOpenHandles --forceExit",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
+  },
+	"jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
+    ]
   },
   "repository": {
     "type": "git",
