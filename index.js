@@ -6,10 +6,14 @@ const server = require('./server/server');
 
 const PORT = env.PORT || 7000;
 
-https.createServer({
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-  passphrase: env.SSL_PASSPHRASE
-}, server).listen(PORT, () => {
+env.NODE_ENV === 'development' ?
+  https.createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: env.SSL_PASSPHRASE
+  }, server).listen(PORT, () => {
+    console.log(`\n=== listening on ${PORT} ===\n`);
+  })
+: server.listen(PORT, () => {
   console.log(`\n=== listening on ${PORT} ===\n`);
 });
