@@ -9,8 +9,8 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  const family = await Families.find()
-  res.status(200).json(user)
+  const families = await Families.find()
+  res.status(200).json(families)
 })
 
 router.get('/:id', async (req, res) => {
@@ -23,7 +23,7 @@ router.put('/:id', async (req, res) => {
   const { id } = req.params
   const family = req.body
   const updated = await Families.update(id, family)
-  res.status(201).json(updated)
+  res.status(200).json(updated)
 })
 
 router.delete('/:id', async (req, res) => {
