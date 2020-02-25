@@ -38,3 +38,5 @@ router.use((err, req, res, next) =>
     error: err.message.replace(/\\/g, ''),
   })
 )
+
+module.exports = router
