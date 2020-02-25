@@ -1,12 +1,12 @@
 exports.up = function(knex) {
-  return knex.schema.createTable('admins', admin => {
-    admin.increments('admin_id')
-    admin
+  return knex.schema.createTable('admins', tbl => {
+    tbl.increments('admin_id')
+    tbl
       .string('email')
       .notNullable()
       .unique()
       .index()
-    admin.string('display_name').notNullable()
+    tbl.string('display_name').notNullable()
   })
 }
 

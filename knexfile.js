@@ -10,7 +10,17 @@ module.exports = {
     seeds: {
       directory: './data/seeds',
     },
-    useNullAsDefault: true,
+  },
+
+  testing: {
+    client: 'pg',
+    connection: env.TEST_DB,
+    migrations: {
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
   },
 
   staging: {
@@ -22,7 +32,6 @@ module.exports = {
     seeds: {
       directory: './data/seeds',
     },
-    useNullAsDefault: true,
   },
 
   production: {
@@ -34,6 +43,5 @@ module.exports = {
     seeds: {
       directory: './data/seeds',
     },
-    useNullAsDefault: true,
   },
 }
