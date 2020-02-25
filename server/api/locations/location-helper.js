@@ -13,12 +13,14 @@ module.exports = {
   findZips,
   findZipById,
   findByZip,
+  findByLocation,
+  addCityStateZip,
 }
 
 // CITIES
 
 function addCity(cityData) {
-  return db('cities').insert(cityData)
+  return db('cities').insert(cityData, ['city_id', 'city'])
 }
 
 // return array of all cities
@@ -41,7 +43,7 @@ function findCityByName(name) {
 // STATES
 
 function addState(stateData) {
-  return db('states').insert(stateData)
+  return db('states').insert(stateData, 'state_id')
 }
 
 // return array of all states
@@ -64,7 +66,7 @@ function findStateByName(name) {
 // ZIPS
 
 function addZip(zipData) {
-  return db('zips').insert(zipData)
+  return db('zips').insert(zipData, 'zip_id')
 }
 
 // return array of all cities
@@ -82,4 +84,23 @@ function findByZip(zip) {
   return db('zips')
     .where('zip', zip)
     .first()
+}
+
+// CITY_STATE_ZIP
+
+function findByLocation(cityId, stateId, zipId) {
+  return db('city_state_zip')
+    .where('city_id', cityId, 'state_id', stateId, 'zip_id', zipId)
+    .first()
+}
+
+function addCityStateZip(cityId, stateId, zipId) {
+  return db('city_state_zip').insert(
+    {
+      city_id: cityId,
+      state_id: stateId,
+      zip_id: zipId,
+    },
+    ['city_state_zip_id', 'city_id', 'state_id', 'zip_id']
+  )
 }
