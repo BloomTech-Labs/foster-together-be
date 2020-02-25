@@ -23,13 +23,13 @@ function findBy(filter) {
 
 function findById(id) {
   return db('neighbors')
-    .where('id', id)
+    .where('neighbor_id', id)
     .first()
 }
 
 function update(id, data) {
   return db('neighbors')
-    .where('id', id)
+    .where('neighbor_id', id)
     .update({
       first_name: data.first_name,
       last_name: data.last_name,
@@ -41,6 +41,6 @@ function update(id, data) {
 
 function remove(id) {
   return db('neighbors')
-    .where('id', id)
+    .where('neighbor_id', id)
     .del()
 }
