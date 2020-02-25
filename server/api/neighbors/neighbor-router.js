@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   const neighbor = await Neighbors.find()
-  res.status(200).json(user)
+  res.status(200).json(neighbor)
 })
 
 router.get('/:id', async (req, res) => {
@@ -23,7 +23,7 @@ router.put('/:id', async (req, res) => {
   const { id } = req.params
   const neighbor = req.body
   const updated = await Neighbors.update(id, neighbor)
-  res.status(201).json(updated)
+  res.status(200).json(updated)
 })
 
 router.delete('/:id', async (req, res) => {

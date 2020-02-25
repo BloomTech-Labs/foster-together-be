@@ -10,7 +10,13 @@ module.exports = {
 }
 
 function add(neighborData) {
-  return db('neighbors').insert(neighborData)
+  return db('neighbors').insert({ ...neighborData, city_state_zip_id: 1 }, [
+    'first_name',
+    'last_name',
+    'email',
+    'phone',
+    'address',
+  ])
 }
 
 function find() {
@@ -30,13 +36,16 @@ function findById(id) {
 function update(id, data) {
   return db('neighbors')
     .where('neighbor_id', id)
-    .update({
-      first_name: data.first_name,
-      last_name: data.last_name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-    })
+    .update(
+      {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+      },
+      ['first_name', 'last_name', 'email', 'phone', 'address']
+    )
 }
 
 function remove(id) {
