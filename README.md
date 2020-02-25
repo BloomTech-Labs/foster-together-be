@@ -8,7 +8,7 @@
 
 #### Backend deployed at [Heroku](https://foster-together-back.herokuapp.com/) <br>
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
 
@@ -26,95 +26,149 @@ To get the server running locally:
 -    Point Three
 -    Point Four
 
-## 2️⃣ Endpoints
+## Endpoints
 
-🚫This is a placeholder, replace the endpoints, access control, and descriptioin to match your project
-
-#### Organization Routes
-
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
-
-#### User Routes
+#### Admin Routes
 
 | Method | Endpoint                | Access Control      | Description                                        |
 | ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| POST    | `/api/admins/login`        | admins | Log in as an admin. |
+| POST    | `/api/admins`        | admins | Create a new admin account. |
+| GET   | `/api/admins/:id`        | admins | Returns the information for an admin by ID. |
+| DELETE | `/api/admins/:id`    | admins         | Delete an admin account. |
+
+#### Neighbor Routes
+
+| Method | Endpoint                | Access Control | Description                                  |
+| ------ | ----------------------- | -------------- | -------------------------------------------- |
+| GET    | `/api/neighbors`        | admins | Returns the contact information for all foster neighbors. |
+| GET    | `/api/neighbors/:id`        | admins | Returns the contact information for a foster neighbor by ID. |
+| POST   | `/api/neighbors`        | new neighbors, admins | Add a new foster neighbor. |
+| PUT    | `/api/neighbors/:id`     | admins | Update the contact information for a foster neighbor. |
+| DELETE | `/api/neighbors/:id`    | admins         | Delete a foster neighbor. |
+
+#### Family Routes
+
+| Method | Endpoint                | Access Control      | Description                                        |
+| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
+| GET    | `/api/families`        | admins | Returns the contact information for all foster families. |
+| GET    | `/api/families/:id`        | admins | Returns the contact information for a foster family by ID. |
+| POST   | `/api/families`        | new families, admins | Add a new foster family. |
+| PUT    | `/api/families/:id`     | admins | Update the contact information for a foster family. |
+| DELETE | `/api/families/:id`    | admins         | Delete a foster family. |
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
-
-#### 2️⃣ ORGANIZATIONS
+#### ADMINS
 
 ---
 
 ```
 {
-  id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  admin_id: UUID,
+  email: STRING,
+  display_name: STRING
 }
 ```
 
-#### USERS
+#### CITIES
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  city_id: UUID,
+  city: STRING
 }
 ```
 
-## 2️⃣ Actions
+#### STATES
 
-🚫 This is an example, replace this with the actions that pertain to your backend
+---
 
-`getOrgs()` -> Returns all organizations
+```
+{
+  state_id: UUID,
+  state: STRING
+}
+```
 
-`getOrg(orgId)` -> Returns a single organization by ID
+#### ZIPS
 
-`addOrg(org)` -> Returns the created org
+---
 
-`updateOrg(orgId)` -> Update an organization by ID
+```
+{
+  zip_id: UUID,
+  zip: INTEGER
+}
+```
 
-`deleteOrg(orgId)` -> Delete an organization by ID
-<br>
-<br>
-<br>
-`getUsers(orgId)` -> if no param all users
+#### CITY_STATE_ZIP
 
-`getUser(userId)` -> Returns a single user by user ID
+---
 
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
+```
+{
+  city_state_zip_id: UUID,
+  //foreign keys
+  city_id: INTEGER,
+  state_id: INTEGER,
+  zip_id: INTEGER
+}
+```
 
-`updateUser(userId, changes object)` -> Updates a single user by ID.
+#### FAMILIES
 
-`deleteUser(userId)` -> deletes everything dependent on the user
+---
 
-## 3️⃣ Environment Variables
+```
+{
+  family_id: UUID,
+  first_name: STRING,
+  last_name: STRING,
+  email: STRING,
+  phone: STRING,
+  address: STRING,
+  city_state_zip_id: INTEGER // foreign key
+  
+}
+```
+
+#### NEIGHBORS
+
+---
+
+```
+{
+  neighbor_id: UUID,
+  first_name: STRING,
+  last_name: STRING,
+  email: STRING,
+  phone: STRING,
+  address: STRING,
+  city_state_zip_id: INTEGER // foreign key
+  
+}
+```
+
+## Actions
+
+`add(data)` -> Insert a foster neighbor, family, or admin account
+
+`find()` -> Get a list of all foster neighbors or families
+
+`findBy(filter)` -> Get foster neighbor(s) or famili(es) by a key name, ie `{ email }`
+
+`findById(id)` -> Get a foster neighbor or family by ID
+
+`update(id, data)` -> Update a foster neighbor or family's contact information, or an admin's account info
+
+`remove(id)` -> Delete a foster neighbor or family
+
+`adminDelete(id)` -> Delete an admin account
+
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
@@ -122,8 +176,9 @@ create a .env file that includes the following:
     
     *  PORT - optional
     *  NODE_ENV - set to "development" until ready for "production"
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
     *  SSL_PASSPHRASE - determined when generating an OpenSSL key on your local machine
+    *  DATABASE_URL - production DB url
+    *  TEST_DB - test DB url
     
 ## Contributing
 
