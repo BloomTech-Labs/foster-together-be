@@ -4,10 +4,22 @@ module.exports = {
   add,
   update,
   adminDelete,
+  findBy,
+  findById,
 }
 
 function add(adminData) {
   return db('admins').insert(adminData)
+}
+
+function findBy(filter) {
+  return db('admins').where(filter)
+}
+
+function findById(id) {
+  return db('admins')
+    .where('admin_id', id)
+    .first()
 }
 
 function update(id, changes) {
