@@ -2,7 +2,7 @@ const router = require('express-promise-router')
 
 const admins = require('./admin-helper')
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
   const email = req.body
   const login = await admins.findby(email)
   res.status(200).json({ login })
