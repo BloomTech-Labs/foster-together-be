@@ -9,7 +9,7 @@ server.use(helmet())
 server.use(cors())
 server.use(express.json())
 
-server.use('/api', familyRouter)
+server.use('/api', apiRouter)
 
 server.get('/', (req, res) => {
   res.status(200).json({ Server: 'Running' })
