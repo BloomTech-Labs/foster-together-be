@@ -1,5 +1,7 @@
 const db = require('../../../data/db-config.js')
 
+const Locations = require('../locations/location-helper.js')
+
 module.exports = {
   add,
   find,

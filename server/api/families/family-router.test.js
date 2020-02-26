@@ -15,6 +15,9 @@ describe('api/families', () => {
           email: 'john.smith@email.com',
           phone: '503-555-8654',
           address: '1234 Main Street, APT 5',
+          city: 'New Haven',
+          state: 'Connecticut',
+          zip: '06516',
         })
 
       expect(res.status).toBe(201)
@@ -27,6 +30,9 @@ describe('api/families', () => {
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
+        city: 'New Haven',
+        state: 'Connecticut',
+        zip: '06516',
       })
     })
   })

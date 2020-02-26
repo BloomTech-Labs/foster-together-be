@@ -12,6 +12,7 @@ describe('family-helper', () => {
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
+        city_state_zip_id: 1,
       })
 
       const family = await db('families').first()
