@@ -9,7 +9,7 @@ module.exports = {
   remove,
 }
 
-function add(familyData) {
+async function add(familyData) {
   let city = await Locations.findCityByName(familyData.city)
   let state = await Locations.findStateByName(familyData.state)
   let zip = await Locations.findByZip(Number(familyData.zip))
