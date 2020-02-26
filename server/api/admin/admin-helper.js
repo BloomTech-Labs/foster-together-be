@@ -6,6 +6,7 @@ module.exports = {
   adminDelete,
   findBy,
   findById,
+  find,
 }
 
 function add(adminData) {
@@ -22,14 +23,14 @@ function findById(id) {
     .first()
 }
 
-function update(id, changes) {
+function find() {
   return db('admins')
-    .where({ id })
-    .update(changes)
+}
+
+function update(id, changes) {
+  return findById(id).update(changes)
 }
 
 function adminDelete(id) {
-  return db('admins')
-    .where({ id })
-    .del(id)
+  return findById(id).del()
 }
