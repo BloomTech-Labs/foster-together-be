@@ -14,7 +14,7 @@ module.exports = {
 async function add(neighborData) {
   let city = await Locations.findCityByName(neighborData.city)
   let state = await Locations.findStateByName(neighborData.state)
-  let zip = await Locations.findByZip(neighborData.zip)
+  let zip = await Locations.findByZip(Number(neighborData.zip))
 
   if (!city) {
     let newCity = await Locations.addCity({ city: neighborData.city })
@@ -27,7 +27,7 @@ async function add(neighborData) {
   }
 
   if (!zip) {
-    let newZip = await Locations.addZip({ zip: neighborData.zip })
+    let newZip = await Locations.addZip({ zip: Number(neighborData.zip) })
     zip = newZip[0]
   }
 

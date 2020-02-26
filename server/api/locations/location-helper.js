@@ -43,7 +43,7 @@ function findCityByName(name) {
 // STATES
 
 function addState(stateData) {
-  return db('states').insert(stateData, 'state_id')
+  return db('states').insert(stateData, ['state_id', 'state'])
 }
 
 // return array of all states
@@ -66,7 +66,7 @@ function findStateByName(name) {
 // ZIPS
 
 function addZip(zipData) {
-  return db('zips').insert(zipData, 'zip_id')
+  return db('zips').insert(zipData, ['zip_id', 'zip'])
 }
 
 // return array of all cities
@@ -90,7 +90,7 @@ function findByZip(zip) {
 
 function findByLocation(cityId, stateId, zipId) {
   return db('city_state_zip')
-    .where('city_id', cityId, 'state_id', stateId, 'zip_id', zipId)
+    .where({ city_id: cityId, state_id: stateId, zip_id: zipId })
     .first()
 }
 
