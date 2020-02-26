@@ -3,7 +3,7 @@ const db = require('../../../data/db-config.js'),
 
 describe('neighbor-helper', () => {
   describe('CREATE', () => {
-    beforeEach(async () => await db('neighbors').truncate())
+    beforeEach(async () => await db.seed.run())
 
     test('add should successfully add a neighbor to database', async () => {
       await add({
@@ -12,17 +12,20 @@ describe('neighbor-helper', () => {
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
+        city: 'Denver',
+        state: 'Colorado',
+        zip: '80301',
       })
 
-      const neighbor = await db('neighbors').first()
+      const neighbor = await db('neighbors')
 
-      expect(neighbor).toMatchObject({
+      expect(neighbor[3]).toMatchObject({
         first_name: 'John',
         last_name: 'Smith',
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
-        city_state_zip_id: 1,
+        city_state_zip_id: 4,
       })
     })
   })
