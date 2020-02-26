@@ -26,6 +26,18 @@ router.get('/:id', async (req, res) => {
   res.status(200).json(admin)
 })
 
+router.get('/', async (req, res) => {
+  const admin = await admins.find()
+  res.status(200).json(admin)
+})
+
+router.post('/:id', async (req, res) => {
+  const { id } = req.params
+  const info = req.body
+  const updated = await admins.update(id, info)
+  res.status(200).json(updated)
+})
+
 router.use((err, req, res, next) =>
   res.status(500).json({
     message: 'Uh Oh! 500 Error!',
