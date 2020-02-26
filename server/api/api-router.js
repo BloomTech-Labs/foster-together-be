@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 const neighborRouter = require('./neighbors/neighbor-router.js')
 const familyRouter = require('./families/family-router.js')
-const adminRouter = require('./admin/admin-helper')
+const adminRouter = require('./admin/admin-router')
 
 router.use('/neighbors', neighborRouter)
 router.use('/families', familyRouter)
