@@ -32,7 +32,5 @@ function update(id, changes) {
 }
 
 function adminDelete(id) {
-  return db('admins')
-    .where({ id })
-    .del(id)
+  return findById(id).del()
 }

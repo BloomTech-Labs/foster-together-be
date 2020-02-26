@@ -60,4 +60,19 @@ describe('admin-helper', () => {
       })
     })
   })
+  describe('delete', () => {
+    beforeEach(() => db.seed.run())
+    test('delete admin', async () => {
+      const userDelete = await findById(1)
+      expect(userDelete).toMatchObject({
+        admin_id: 1,
+        email: 'hope@email.com',
+        display_name: 'Hope',
+      })
+
+      await adminDelete(1)
+      const deleted = await findById(1)
+      expect(deleted).toBe(undefined)
+    })
+  })
 })

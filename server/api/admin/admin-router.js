@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   res.status(201).json({ addAdmin })
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params
   const deleted = await admins.adminDelete(id)
   res.status(200).json({ deleted })
