@@ -75,4 +75,18 @@ describe('admin-helper', () => {
       expect(deleted).toBe(undefined)
     })
   })
+
+  describe('findBy', () => {
+    beforeEach(() => db.seed.run())
+    test('find user by', async () => {
+      const findUser = await findBy({ email: 'hope@email.com' })
+      expect(findUser).toMatchObject([
+        {
+          admin_id: 1,
+          email: 'hope@email.com',
+          display_name: 'Hope',
+        },
+      ])
+    })
+  })
 })
