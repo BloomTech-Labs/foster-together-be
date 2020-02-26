@@ -17,6 +17,10 @@ To get the server running locally:
 - `npm run server` to start the local server
 - `npm test` to start server using testing environment
 
+To test the server with localhost:
+
+- Download OpenSSL and run `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365`
+
 ### Express.js
 
 🚫 Why did you choose this framework?
@@ -43,7 +47,7 @@ To get the server running locally:
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
 | GET    | `/api/neighbors`        | admins | Returns the contact information for all foster neighbors. |
 | GET    | `/api/neighbors/:id`        | admins | Returns the contact information for a foster neighbor by ID. |
-| POST   | `/api/neighbors`        | new neighbors, admins | Add a new foster neighbor. |
+| POST   | `/api/neighbors`        | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
 | PUT    | `/api/neighbors/:id`     | admins | Update the contact information for a foster neighbor. |
 | DELETE | `/api/neighbors/:id`    | admins         | Delete a foster neighbor. |
 
@@ -53,7 +57,7 @@ To get the server running locally:
 | ------ | ----------------------- | ------------------- | -------------------------------------------------- |
 | GET    | `/api/families`        | admins | Returns the contact information for all foster families. |
 | GET    | `/api/families/:id`        | admins | Returns the contact information for a foster family by ID. |
-| POST   | `/api/families`        | new families, admins | Add a new foster family. |
+| POST   | `/api/families`        | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
 | PUT    | `/api/families/:id`     | admins | Update the contact information for a foster family. |
 | DELETE | `/api/families/:id`    | admins         | Delete a foster family. |
 
@@ -100,7 +104,7 @@ To get the server running locally:
 ```
 {
   zip_id: UUID,
-  zip: INTEGER
+  zip: STRING
 }
 ```
 
@@ -130,8 +134,7 @@ To get the server running locally:
   email: STRING,
   phone: STRING,
   address: STRING,
-  city_state_zip_id: INTEGER // foreign key
-  
+  city_state_zip_id: INTEGER // foreign key  
 }
 ```
 
@@ -147,8 +150,7 @@ To get the server running locally:
   email: STRING,
   phone: STRING,
   address: STRING,
-  city_state_zip_id: INTEGER // foreign key
-  
+  city_state_zip_id: INTEGER // foreign key  
 }
 ```
 
