@@ -3,8 +3,8 @@ const router = require('express-promise-router')()
 const admins = require('./admin-helper')
 
 router.post('/login', async (req, res) => {
-  const email = req.body
-  const login = await admins.findby(email)
+  const { email, display_name } = req.body
+  const login = await admins.findBy({ email, display_name })
   res.status(200).json({ login })
 })
 
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   res.status(201).json({ addAdmin })
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/', async (req, res) => {
   const { id } = req.params
   const deleted = await admins.adminDelete(id)
   res.status(200).json({ deleted })
