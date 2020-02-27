@@ -1,8 +1,8 @@
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
 
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
+🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
 
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
+🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
 # API Documentation
 
@@ -17,49 +17,45 @@ To get the server running locally:
 - `npm run server` to start the local server
 - `npm test` to start server using testing environment
 
-To test the server with localhost:
-
-- Download OpenSSL and run `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365`
-
 ### Express.js
 
 🚫 Why did you choose this framework?
 
--    Point One
--    Point Two
--    Point Three
--    Point Four
+- Point One
+- Point Two
+- Point Three
+- Point Four
 
 ## Endpoints
 
 #### Admin Routes
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| POST    | `/api/admins/login`        | admins | Log in as an admin. |
-| POST    | `/api/admins`        | admins | Create a new admin account. |
-| GET   | `/api/admins/:id`        | admins | Returns the information for an admin by ID. |
-| DELETE | `/api/admins/:id`    | admins         | Delete an admin account. |
+| Method | Endpoint            | Access Control | Description                                 |
+| ------ | ------------------- | -------------- | ------------------------------------------- |
+| POST   | `/api/admins/login` | admins         | Log in as an admin.                         |
+| POST   | `/api/admins`       | admins         | Create a new admin account.                 |
+| GET    | `/api/admins/:id`   | admins         | Returns the information for an admin by ID. |
+| DELETE | `/api/admins/:id`   | admins         | Delete an admin account.                    |
 
 #### Neighbor Routes
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/api/neighbors`        | admins | Returns the contact information for all foster neighbors. |
-| GET    | `/api/neighbors/:id`        | admins | Returns the contact information for a foster neighbor by ID. |
-| POST   | `/api/neighbors`        | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/api/neighbors/:id`     | admins | Update the contact information for a foster neighbor. |
-| DELETE | `/api/neighbors/:id`    | admins         | Delete a foster neighbor. |
+| Method | Endpoint             | Access Control        | Description                                                                                                             |
+| ------ | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/api/neighbors`     | admins                | Returns the contact information for all foster neighbors.                                                               |
+| GET    | `/api/neighbors/:id` | admins                | Returns the contact information for a foster neighbor by ID.                                                            |
+| POST   | `/api/neighbors`     | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
+| PUT    | `/api/neighbors/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
+| DELETE | `/api/neighbors/:id` | admins                | Delete a foster neighbor.                                                                                               |
 
 #### Family Routes
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/api/families`        | admins | Returns the contact information for all foster families. |
-| GET    | `/api/families/:id`        | admins | Returns the contact information for a foster family by ID. |
-| POST   | `/api/families`        | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/api/families/:id`     | admins | Update the contact information for a foster family. |
-| DELETE | `/api/families/:id`    | admins         | Delete a foster family. |
+| Method | Endpoint            | Access Control       | Description                                                                                                           |
+| ------ | ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/api/families`     | admins               | Returns the contact information for all foster families.                                                              |
+| GET    | `/api/families/:id` | admins               | Returns the contact information for a foster family by ID.                                                            |
+| POST   | `/api/families`     | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
+| PUT    | `/api/families/:id` | admins               | Update the contact information for a foster family.                                                                   |
+| DELETE | `/api/families/:id` | admins               | Delete a foster family.                                                                                               |
 
 # Data Model
 
@@ -134,7 +130,7 @@ To test the server with localhost:
   email: STRING,
   phone: STRING,
   address: STRING,
-  city_state_zip_id: INTEGER // foreign key  
+  city_state_zip_id: INTEGER // foreign key
 }
 ```
 
@@ -150,7 +146,7 @@ To test the server with localhost:
   email: STRING,
   phone: STRING,
   address: STRING,
-  city_state_zip_id: INTEGER // foreign key  
+  city_state_zip_id: INTEGER // foreign key
 }
 ```
 
@@ -175,13 +171,12 @@ To test the server with localhost:
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-    
-    *  PORT - optional
-    *  NODE_ENV - set to "development" until ready for "production"
-    *  SSL_PASSPHRASE - determined when generating an OpenSSL key on your local machine
-    *  DATABASE_URL - production DB url
-    *  TEST_DB - test DB url
-    
+
+_ PORT - optional
+_ NODE*ENV - set to "development" until ready for "production"
+* DATABASE*URL - production DB url
+* TEST_DB - test DB url
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -190,11 +185,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
