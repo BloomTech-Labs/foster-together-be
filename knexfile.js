@@ -25,7 +25,12 @@ module.exports = {
 
   staging: {
     client: 'pg',
-    connection: env.DATABASE_URL,
+    connection: {
+      host     : process.env.RDS_HOSTNAME,
+      user     : process.env.RDS_USERNAME,
+      password : process.env.RDS_PASSWORD,
+      port     : process.env.RDS_PORT
+    },
     migrations: {
       directory: './data/migrations',
     },
