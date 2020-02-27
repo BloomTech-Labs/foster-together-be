@@ -1,10 +1,11 @@
 const router = require('express-promise-router')()
 
 const validateId = require('../../../middleware/validate-id.js')
+const validateSignup = require('../../../middleware/validate-signup.js')
 
 const Neighbors = require('./neighbor-helper.js')
 
-router.post('/', async (req, res) => {
+router.post('/', validateSignup, async (req, res) => {
   let neighbor = req.body
   const saved = await Neighbors.add(neighbor)
   res.status(201).json({ message: 'Neighbor successfully added.', saved })

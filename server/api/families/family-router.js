@@ -1,10 +1,11 @@
 const router = require('express-promise-router')()
 
 const validateId = require('../../../middleware/validate-id.js')
+const validateSignup = require('../../../middleware/validate-signup.js')
 
 const Families = require('./family-helper.js')
 
-router.post('/', async (req, res) => {
+router.post('/', validateSignup, async (req, res) => {
   let family = req.body
   const saved = await Families.add(family)
   res.status(201).json({ message: 'Family successfully added.', saved })
