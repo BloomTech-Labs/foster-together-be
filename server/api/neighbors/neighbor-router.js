@@ -1,5 +1,7 @@
 const router = require('express-promise-router')()
 
+const validateId = require('../../../middleware/validate-id.js')
+
 const Neighbors = require('./neighbor-helper.js')
 
 router.post('/', async (req, res) => {
@@ -13,24 +15,28 @@ router.get('/', async (req, res) => {
   res.status(200).json(neighbor)
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateId('neighbors', 'neighbor_id'), async (req, res) => {
   const { id } = req.params
   const neighbor = await Neighbors.findById(id)
   res.status(200).json(neighbor)
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateId('neighbors', 'neighbor_id'), async (req, res) => {
   const { id } = req.params
   const neighbor = req.body
   const updated = await Neighbors.update(id, neighbor)
   res.status(200).json(updated)
 })
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params
-  const deleted = await Neighbors.remove(id)
-  res.status(200).json({ message: 'Neighbor successfully deleted.', deleted })
-})
+router.delete(
+  '/:id',
+  validateId('neighbors', 'neighbor_id'),
+  async (req, res) => {
+    const { id } = req.params
+    const deleted = await Neighbors.remove(id)
+    res.status(200).json({ message: 'Neighbor successfully deleted.', deleted })
+  }
+)
 
 router.use((err, req, res, next) =>
   res.status(500).json({
