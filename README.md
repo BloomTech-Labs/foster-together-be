@@ -172,9 +172,9 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-_ PORT - optional
-_ NODE*ENV - set to "development" until ready for "production"
-* DATABASE*URL - production DB url
+* PORT - optional
+* NODE_ENV - set to "development" until ready for "production"
+* DATABASE_URL - production DB url
 * TEST_DB - test DB url
 
 ## Contributing
