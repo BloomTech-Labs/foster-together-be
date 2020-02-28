@@ -15,6 +15,9 @@ describe('api/neighbors', () => {
           email: 'john.smith@email.com',
           phone: '503-555-8654',
           address: '1234 Main Street, APT 5',
+          city: 'New Haven',
+          state: 'Connecticut',
+          zip: '06512',
         })
 
       expect(res.status).toBe(201)
@@ -27,6 +30,7 @@ describe('api/neighbors', () => {
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
+        city_state_zip_id: 4,
       })
     })
   })
@@ -112,6 +116,9 @@ describe('api/neighbors', () => {
           last_name: 'Smith',
           phone: '503-555-8654',
           address: '1234 Main Street, APT 5',
+          city: 'New Haven',
+          state: 'Connecticut',
+          zip: '06512',
         })
 
       expect(res.status).toBe(500)
@@ -119,7 +126,7 @@ describe('api/neighbors', () => {
       expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
 
       expect(JSON.parse(res.text).error).toBe(
-        'insert into "neighbors" ("address", "city_state_zip_id", "first_name", "last_name", "phone") values ($1, $2, $3, $4, $5) returning "first_name", "last_name", "email", "phone", "address" - null value in column "email" violates not-null constraint'
+        'insert into "neighbors" ("address", "city_state_zip_id", "email", "first_name", "last_name", "phone") values ($1, $2, DEFAULT, $3, $4, $5) returning "first_name", "last_name", "email", "phone", "address", "city_state_zip_id" - null value in column "email" violates not-null constraint'
       )
     })
   })
