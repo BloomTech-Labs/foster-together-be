@@ -6,8 +6,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "npx knex migrate:latest && npx knex seed:run && node index.js",
-    "test": "cross-env NODE_ENV='testing' jest --watch --runInBand --detectOpenHandles --coverage",
-    "test:ci": "jest",
+    "test": "cross-env NODE_ENV='testing' jest --watchAll --runInBand --detectOpenHandles --coverage",
     "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
