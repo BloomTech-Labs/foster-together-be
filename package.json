@@ -6,8 +6,8 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "npx knex migrate:latest && npx knex seed:run && node index.js",
-    "test": "cross-env NODE_ENV='testing' jest --runInBand --detectOpenHandles --coverage",
-    "coverage": "cross-env NODE_ENV='testing' jest --coverage --detectOpenHandles --forceExit || true"
+    "test": "jest --runInBand --detectOpenHandles --coverage --forceExit",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -35,11 +35,10 @@
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "helmet": "^3.21.2",
+    "jest": "^25.1.0",
     "knex": "^0.20.10",
     "knex-cleaner": "^1.3.0",
     "pg": "^7.18.2",
-    "cross-env": "^7.0.0",
-    "jest": "^25.1.0",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
