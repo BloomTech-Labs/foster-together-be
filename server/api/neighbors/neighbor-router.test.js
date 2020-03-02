@@ -115,25 +115,13 @@ describe('api/neighbors', () => {
 
   describe(`custom error handling`, () => {
     test('should respond with status 500, a message, and the original thrown error', async () => {
-      const res = await request(server)
-        .post('/api/neighbors')
-        .send({
-          first_name: 'John',
-          last_name: 'Smith',
-          phone: '503-555-8654',
-          address: '1234 Main Street, APT 5',
-          city: 'New Haven',
-          state: 'Connecticut',
-          zip: '06512',
-        })
+      const res = await request(server).get('/api/neighbors/a')
 
       expect(res.status).toBe(500)
 
       expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
 
-      expect(JSON.parse(res.text).error).toBe(
-        'insert into "neighbors" ("address", "city_state_zip_id", "email", "first_name", "last_name", "phone") values ($1, $2, DEFAULT, $3, $4, $5) returning "first_name", "last_name", "email", "phone", "address", "city_state_zip_id" - null value in column "email" violates not-null constraint'
-      )
+      expect(JSON.parse(res.text).error).toMatch(/invalid input syntax/)
     })
   })
 })
