@@ -6,8 +6,9 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "npx knex migrate:latest && npx knex seed:run && node index.js",
-    "test": "jest --runInBand --detectOpenHandles --coverage --forceExit",
-    "coverage": "jest --coverage --detectOpenHandles --forceExit"
+    "test": "jest --runInBand --forceExit",
+    "watch": "jest --runInBand --detectOpenHandles",
+    "coverage": "jest --coverage --runInBand --detectOpenHandles --forceExit"
   },
   "jest": {
     "collectCoverageFrom": [
