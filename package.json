@@ -16,7 +16,8 @@
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__tests__/**",
-      "!**/data/**"
+      "!**/data/**",
+      "!**/coverage/**"
     ]
   },
   "repository": {
