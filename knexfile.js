@@ -12,9 +12,15 @@ module.exports = {
     },
   },
 
-  testing: {
+  test: {
     client: 'pg',
-    connection: env.TEST_DB,
+    connection: {
+      host: process.env.HOSTNAME_TEST,
+      user: process.env.USERNAME_TEST,
+      password: process.env.PASSWORD_TEST,
+      port: process.env.PORT_TEST,
+      database: process.env.NAME_TEST,
+    },
     migrations: {
       directory: './data/migrations',
     },
@@ -25,7 +31,13 @@ module.exports = {
 
   staging: {
     client: 'pg',
-    connection: env.DATABASE_URL,
+    connection: {
+      host: process.env.RDS_HOSTNAME,
+      user: process.env.RDS_USERNAME,
+      password: process.env.RDS_PASSWORD,
+      port: process.env.RDS_PORT,
+      database: 'postgres',
+    },
     migrations: {
       directory: './data/migrations',
     },
