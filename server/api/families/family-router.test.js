@@ -119,10 +119,7 @@ describe('api/families', () => {
 
       expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
 
-      expect(JSON.parse(res.text).error).toBe(
-        'select * from "families" where "family_id" = $1 limit $2 - invalid input syntax for type integer: "a"' ||
-          'select * from "families" where "family_id" = $1 limit $2 - invalid input syntax for integer: "a"'
-      )
+      expect(JSON.parse(res.text).error).toBe(/invalid input syntax/)
     })
   })
 })
