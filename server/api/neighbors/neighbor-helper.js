@@ -67,16 +67,74 @@ async function add(neighborData) {
 }
 
 function find() {
-  return db('neighbors')
+  return db('neighbors as n')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'n.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'n.neighbor_id',
+      'n.first_name',
+      'n.last_name',
+      'n.email',
+      'n.phone',
+      'n.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
 }
 
 function findBy(filter) {
-  return db('neighbors').where(filter)
+  return db('neighbors as n')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'n.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'n.neighbor_id',
+      'n.first_name',
+      'n.last_name',
+      'n.email',
+      'n.phone',
+      'n.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
+    .where(filter)
 }
 
 function findById(id) {
-  return db('neighbors')
-    .where('neighbor_id', id)
+  return db('neighbors as n')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'n.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'n.neighbor_id',
+      'n.first_name',
+      'n.last_name',
+      'n.email',
+      'n.phone',
+      'n.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
+    .where('n.neighbor_id', id)
     .first()
 }
 

@@ -51,7 +51,9 @@ describe('family-helper', () => {
           email: 'bsev@test.com',
           phone: '200-555-7648',
           address: '32 Cherry Ave',
-          city_state_zip_id: 2,
+          city: 'Colorado Springs',
+          state: 'Colorado',
+          zip: '80014',
         })
       })
     })
@@ -66,7 +68,9 @@ describe('family-helper', () => {
           email: 'bsev@test.com',
           phone: '200-555-7648',
           address: '32 Cherry Ave',
-          city_state_zip_id: 2,
+          city: 'Colorado Springs',
+          state: 'Colorado',
+          zip: '80014',
         })
       })
     })
@@ -80,7 +84,6 @@ describe('family-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
       })
       const updated = await findById(2)
 
@@ -90,7 +93,9 @@ describe('family-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
+        city: 'Colorado Springs',
+        state: 'Colorado',
+        zip: '80014',
       })
     })
   })
@@ -104,7 +109,9 @@ describe('family-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
+        city: 'Colorado Springs',
+        state: 'Colorado',
+        zip: '80014',
       })
 
       await remove(2)

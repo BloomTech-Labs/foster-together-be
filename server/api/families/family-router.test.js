@@ -44,12 +44,15 @@ describe('api/families', () => {
       expect(JSON.parse(res.text).length).toBe(4)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
+        family_id: 1,
         first_name: 'Joseph',
         last_name: 'Rodriguez',
         email: 'Joseph49er@yahoo.com',
         phone: '200-800-7648',
         address: '1245 Wynnstone Dr',
-        city_state_zip_id: 1,
+        city: 'Boulder',
+        state: 'Colorado',
+        zip: '80301',
       })
     })
   })
@@ -61,12 +64,15 @@ describe('api/families', () => {
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)).toMatchObject({
+        family_id: 1,
         first_name: 'Joseph',
         last_name: 'Rodriguez',
         email: 'Joseph49er@yahoo.com',
         phone: '200-800-7648',
         address: '1245 Wynnstone Dr',
-        city_state_zip_id: 1,
+        city: 'Boulder',
+        state: 'Colorado',
+        zip: '80301',
       })
     })
   })
