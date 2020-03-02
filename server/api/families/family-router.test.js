@@ -119,7 +119,7 @@ describe('api/families', () => {
 
       expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
 
-      expect(JSON.parse(res.text).error).toBe(/invalid input syntax/)
+      expect(JSON.parse(res.text).error).toMatch(/invalid input syntax/)
     })
   })
 })
