@@ -67,15 +67,73 @@ async function add(familyData) {
 }
 
 function find() {
-  return db('families')
+  return db('families as f')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'f.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'f.family_id',
+      'f.first_name',
+      'f.last_name',
+      'f.email',
+      'f.phone',
+      'f.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
 }
 
 function findBy(filter) {
-  return db('families').where(filter)
+  return db('families as f')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'f.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'f.family_id',
+      'f.first_name',
+      'f.last_name',
+      'f.email',
+      'f.phone',
+      'f.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
+    .where(filter)
 }
 
 function findById(id) {
-  return db('families')
+  return db('families as f')
+    .join(
+      'city_state_zip as csz',
+      'csz.city_state_zip_id',
+      'f.city_state_zip_id'
+    )
+    .join('cities as c', 'c.city_id', 'csz.city_id')
+    .join('states as s', 's.state_id', 'csz.state_id')
+    .join('zips as z', 'z.zip_id', 'csz.zip_id')
+    .select(
+      'f.family_id',
+      'f.first_name',
+      'f.last_name',
+      'f.email',
+      'f.phone',
+      'f.address',
+      'c.city',
+      's.state',
+      'z.zip'
+    )
     .where('family_id', id)
     .first()
 }

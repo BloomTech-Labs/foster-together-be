@@ -44,12 +44,15 @@ describe('api/neighbors', () => {
       expect(JSON.parse(res.text).length).toBe(4)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
+        neighbor_id: 1,
         first_name: 'Eric',
         last_name: 'Grece',
         email: 'GreceMana@yahoo.com',
         phone: '202-808-6542',
         address: '629 W Cienga Boul',
-        city_state_zip_id: 1,
+        city: 'Boulder',
+        state: 'Colorado',
+        zip: '80301',
       })
     })
   })
@@ -61,12 +64,15 @@ describe('api/neighbors', () => {
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)).toMatchObject({
+        neighbor_id: 1,
         first_name: 'Eric',
         last_name: 'Grece',
         email: 'GreceMana@yahoo.com',
         phone: '202-808-6542',
         address: '629 W Cienga Boul',
-        city_state_zip_id: 1,
+        city: 'Boulder',
+        state: 'Colorado',
+        zip: '80301',
       })
     })
   })

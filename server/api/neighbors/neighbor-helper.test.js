@@ -46,12 +46,15 @@ describe('neighbor-helper', () => {
         const found = await findBy({ email: 'Richmon@yahoo.com' })
 
         expect(found[0]).toMatchObject({
+          neighbor_id: 2,
           first_name: 'Tommy',
           last_name: 'Richmon',
           email: 'Richmon@yahoo.com',
           phone: '102-808-3242',
           address: 'Orange County',
-          city_state_zip_id: 2,
+          city: 'Colorado Springs',
+          state: 'Colorado',
+          zip: '80014',
         })
       })
     })
@@ -61,12 +64,15 @@ describe('neighbor-helper', () => {
         const found = await findById(2)
 
         expect(found).toMatchObject({
+          neighbor_id: 2,
           first_name: 'Tommy',
           last_name: 'Richmon',
           email: 'Richmon@yahoo.com',
           phone: '102-808-3242',
           address: 'Orange County',
-          city_state_zip_id: 2,
+          city: 'Colorado Springs',
+          state: 'Colorado',
+          zip: '80014',
         })
       })
     })
@@ -80,7 +86,6 @@ describe('neighbor-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
       })
       const updated = await findById(2)
 
@@ -90,7 +95,9 @@ describe('neighbor-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
+        city: 'Colorado Springs',
+        state: 'Colorado',
+        zip: '80014',
       })
     })
   })
@@ -104,7 +111,9 @@ describe('neighbor-helper', () => {
         email: 'testing@yahoo.com',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city_state_zip_id: 2,
+        city: 'Colorado Springs',
+        state: 'Colorado',
+        zip: '80014',
       })
 
       await remove(2)
