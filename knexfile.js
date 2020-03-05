@@ -1,6 +1,5 @@
 const { DATABASE_URL } = require('./env.js'),
-  testDB = require('./data/knex/knextest'),
-  awsDB = require('./data/knex/knexAWS')
+  testDB = require('./data/knex/knextest')
 
 module.exports = {
   development: {
