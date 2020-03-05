@@ -1,9 +1,11 @@
-const env = require('./env.js')
+const { DATABASE_URL } = require('./env.js'),
+  testDB = require('./knextest'),
+  awsDB = require('./knexAWS')
 
 module.exports = {
   development: {
     client: 'pg',
-    connection: env.DATABASE_URL,
+    connection: DATABASE_URL,
     migrations: {
       directory: './data/migrations',
     },
@@ -14,13 +16,7 @@ module.exports = {
 
   test: {
     client: 'pg',
-    connection: {
-      host: process.env.HOSTNAME_TEST,
-      user: process.env.USERNAME_TEST,
-      password: process.env.PASSWORD_TEST,
-      port: process.env.PORT_TEST,
-      database: process.env.NAME_TEST,
-    },
+    connection: testDB,
     migrations: {
       directory: './data/migrations',
     },
@@ -31,13 +27,7 @@ module.exports = {
 
   staging: {
     client: 'pg',
-    connection: {
-      host: process.env.RDS_HOSTNAME,
-      user: process.env.RDS_USERNAME,
-      password: process.env.RDS_PASSWORD,
-      port: process.env.RDS_PORT,
-      database: 'postgres',
-    },
+    connection: awsDB,
     migrations: {
       directory: './data/migrations',
     },
@@ -48,7 +38,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: env.DATABASE_URL,
+    connection: awsDB,
     migrations: {
       directory: './data/migrations',
     },
