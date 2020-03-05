@@ -6,7 +6,7 @@ const {
   NAME_TEST,
 } = require('../../env')
 
-module.exports = testDB = {
+module.exports = {
   host: HOSTNAME_TEST,
   user: USERNAME_TEST,
   password: PASSWORD_TEST,

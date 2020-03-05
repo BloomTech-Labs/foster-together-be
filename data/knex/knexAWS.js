@@ -5,7 +5,7 @@ const {
   RDS_PORT,
 } = require('../../env')
 
-module.exports = awsDB = {
+module.exports = {
   host: RDS_HOSTNAME,
   user: RDS_USERNAME,
   password: RDS_PASSWORD,
