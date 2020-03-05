@@ -10,5 +10,4 @@ server.use('/api', apiRouter)
 server.get('/', (req, res) => {
   res.status(200).json({ Server: 'Running' })
 })
-
 module.exports = server
