@@ -28,6 +28,6 @@ module.exports = {
     client: 'pg',
     connection: awsDB,
     migrations: { directory: './data/migrations' },
-    seeds: { directory: './data/seeds' },
+    seeds: { directory: './data/seeds/productionSeed' },
   },
 }
