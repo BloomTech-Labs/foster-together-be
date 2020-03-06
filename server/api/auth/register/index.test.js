@@ -1,6 +1,6 @@
-const server = require('../../../../index'),
+const server = require('../../../server'),
   request = require('supertest'),
-  db = require('../../../../db/dbConfig')
+  db = require('../../../../data/db-config')
 
 describe('/register', () => {
   beforeAll(

@@ -1,4 +1,4 @@
-const server = require('../../../../index'),
+const server = require('../../../server'),
   request = require('supertest')
 
 describe('/logout', () => {
