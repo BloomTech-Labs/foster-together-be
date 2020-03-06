@@ -1,4 +1,4 @@
-const db = require('../../../../db/dbConfig'),
+const db = require('../../../../data/db-config'),
   { findUser } = require('../authTools'),
   addUser = async newUser => {
     await db('users').insert({

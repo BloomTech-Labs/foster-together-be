@@ -9,8 +9,5 @@ module.exports = {
   PASSWORD_TEST: process.env.PASSWORD_TEST,
   PORT_TEST: process.env.PORT_TEST,
   NAME_TEST: process.env.NAME_TEST,
-  HOSTNAME: process.env.RDS_HOSTNAME, // amazon DBs
-  user: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
-  port: process.env.RDS_PORT,
+  JWT_SECRET: process.env.JWT_SECRET,
 }

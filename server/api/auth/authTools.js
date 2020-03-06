@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken'),
-  db = require('../../../db/dbConfig'),
+  db = require('../../../data/db-config'),
   { JWT_SECRET } = require('../../../env')
 
 const generateToken = user => {
