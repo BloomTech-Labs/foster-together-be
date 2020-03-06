@@ -6,12 +6,12 @@ const authenticate = async (req, res, next) => {
   if (!req.headers.authorization)
     return res
       .status(401)
-      .json({ message: 'You shall not pass!', token: false })
+      .json({ message: 'Authentication Failure', token: false })
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
     if (err)
       return res
         .status(401)
-        .json({ message: 'You shall not pass!', token: false })
+        .json({ message: 'Authentication Failure', token: false })
     req.decodedToken = decodedToken
     next()
   })

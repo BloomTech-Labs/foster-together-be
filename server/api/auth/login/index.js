@@ -14,7 +14,7 @@ router.post('/', valBody, validatePassword, (req, res) => {
 
 router.use((err, req, res, next) =>
   res.status(500).json({
-    message: 'Uh Oh! 500 Error!',
+    message: 'Login Failure',
     error: err.message.replace(/\\/g, ''),
     token: false,
   })

@@ -16,7 +16,7 @@ router.post('/', valBody, hashPassword, async (req, res) => {
 
 router.use((err, req, res, next) =>
   res.status(500).json({
-    message: 'Uh Oh! 500 Error!',
+    message: 'Registration Failure',
     error: err.message.replace(/\\/g, ''),
     token: false,
   })

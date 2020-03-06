@@ -24,7 +24,7 @@ describe('/login', () => {
 
       expect(res.status).toBe(500)
 
-      expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
+      expect(JSON.parse(res.text).message).toBe('Login Failure')
 
       expect(JSON.parse(res.text).error).toBe(
         'Must send both a username and a password'

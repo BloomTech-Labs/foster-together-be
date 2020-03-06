@@ -35,7 +35,7 @@ describe('/register', () => {
 
       expect(res.status).toBe(500)
 
-      expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
+      expect(JSON.parse(res.text).message).toBe('Registration Failure')
 
       expect(JSON.parse(res.text).error).toBe(
         'Must send username, password and email address!'
