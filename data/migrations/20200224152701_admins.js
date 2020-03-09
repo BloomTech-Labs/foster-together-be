@@ -2,11 +2,11 @@ exports.up = function(knex) {
   return knex.schema.createTable('admins', tbl => {
     tbl.increments('admin_id')
     tbl
-      .text('email')
+      .string('email')
       .notNullable()
       .unique()
       .index()
-    tbl.text('first_name').notNullable()
+    tbl.string('display_name').notNullable()
   })
 }
 

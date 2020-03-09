@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs'),
 
 const valBody = (req, res, next) => {
   if (!req.body.email && !req.body.password)
-    throw new Error('Must send both a username and a password')
-  if (!req.body.email) throw new Error('Must send a username')
+    throw new Error('Must send both an email and a password')
+  if (!req.body.email) throw new Error('Must send an email')
   if (!req.body.password) throw new Error('Must send a password')
   next()
 }
@@ -17,10 +17,10 @@ const validatePassword = async (req, res, next) => {
   if (!user || !bcrypt.compareSync(req.body.password, user.password))
     return res
       .status(401)
-      .json({ message: 'You shall not pass!', token: false })
+      .json({ message: 'Authorization failed!', token: false })
   req.body.user = {
     subject: user.user_id,
-    username: user.username,
+    first_name: user.first_name,
   }
   next()
 }

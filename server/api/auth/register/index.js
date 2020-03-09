@@ -1,15 +1,15 @@
 const router = require('express-promise-router')(),
   { valBody, hashPassword } = require('./middleware'),
-  { addUser } = require('./model'),
+  { addAdmin } = require('./model'),
   { generateToken } = require('../authTools')
 
 module.exports = router
 
 router.post('/', valBody, hashPassword, async (req, res) => {
-  const user = await addUser(req.body)
+  const user = await addAdmin(req.body)
   const token = generateToken(user)
   res.status(201).json({
-    message: `${user.username} successfully created!`,
+    message: `${user.first_name} successfully created!`,
     token: token,
   })
 })

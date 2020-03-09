@@ -5,14 +5,14 @@ const server = require('../../../server'),
 describe('/login', () => {
   beforeAll(async () => await db.seed.run())
   describe('with correct request body', () => {
-    test('returns a status of 201, a message, and a token', async () => {
+    test('returns a status of 200, a message, and a token', async () => {
       const res = await request(server)
         .post('/api/login')
-        .send({ username: 'blahblah', password: 'blahblah' })
+        .send({ email: 'hope@email.com', password: 'hopehope' })
 
       expect(res.status).toBe(200)
 
-      expect(JSON.parse(res.text).message).toBe('blahblah logged in!')
+      expect(JSON.parse(res.text).message).toBe('Hope logged in!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
     })
@@ -27,7 +27,7 @@ describe('/login', () => {
       expect(JSON.parse(res.text).message).toBe('Login Failure')
 
       expect(JSON.parse(res.text).error).toBe(
-        'Must send both a username and a password'
+        'Must send both an email and a password'
       )
 
       expect(JSON.parse(res.text).token).toBeFalsy()

@@ -7,7 +7,7 @@ module.exports = router
 router.post('/', valBody, validatePassword, (req, res) => {
   const token = generateToken(req.body.user)
   res.json({
-    message: `${req.body.user.username} logged in!`,
+    message: `${req.body.user.first_name} logged in!`,
     token,
   })
 })

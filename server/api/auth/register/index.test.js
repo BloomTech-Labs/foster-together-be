@@ -3,27 +3,21 @@ const server = require('../../../server'),
   db = require('../../../../data/db-config')
 
 describe('/register', () => {
-  beforeAll(
-    async () =>
-      await db('users')
-        .where('username', 'atestuser2')
-        .del()
-  )
+  beforeAll(() => db.seed.run())
+
   describe('with correct request body', () => {
     test('returns a status of 201, a message, and a token', async () => {
       const res = await request(server)
         .post('/api/register')
         .send({
           email: 'atest2@email.com',
-          username: 'atestuser2',
+          first_name: 'test',
           password: 'atestpassword',
         })
 
       expect(res.status).toBe(201)
 
-      expect(JSON.parse(res.text).message).toBe(
-        'atestuser2 successfully created!'
-      )
+      expect(JSON.parse(res.text).message).toBe('test successfully created!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
     })
@@ -38,7 +32,7 @@ describe('/register', () => {
       expect(JSON.parse(res.text).message).toBe('Registration Failure')
 
       expect(JSON.parse(res.text).error).toBe(
-        'Must send username, password and email address!'
+        'Must send first_name, password and email address!'
       )
 
       expect(JSON.parse(res.text).token).toBeFalsy()

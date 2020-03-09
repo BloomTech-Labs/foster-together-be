@@ -5,13 +5,18 @@ exports.seed = knex =>
       knex('users').insert([
         {
           password:
-            '$2a$14$FW.j/dIcqegesehfefcxVOsevIysPkkKi6O27/qpIk64qC8cxF9Ti',
+            '$2a$14$sCVMd5B5ITznEB2lkPUTI.HxQQZYsjjWEDOhGDx2duqjeghH60ida',
           admin_id: 1,
         },
         {
           password:
-            '$2a$14$3zoGnAEVVcVTz20glapt9eI2Y/WNLkbqM4H.F4xL2DI24xdT29Fs2',
+            '$2a$14$LlVu4ZBae1MBn6brOODI4OdM76s7hBOJUaLWx7qXbuuUmy6T.btF2',
           admin_id: 2,
+        },
+        {
+          password:
+            '$2a$14$Y8IbSs3SmKR2Y9nNx6dwL.AhbTbyg5r0U4fV51D6DoRiyII9GMPOe',
+          admin_id: 3,
         },
       ])
     )

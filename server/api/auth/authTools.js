@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken'),
-  db = require('../../../data/db-config'),
   { JWT_SECRET } = require('../../../env')
 
 const generateToken = user => {
@@ -12,9 +11,4 @@ const generateToken = user => {
   return jwt.sign(payload, JWT_SECRET, options)
 }
 
-const findUser = async user =>
-  await db('users')
-    .where('username', user)
-    .first()
-
-module.exports = { generateToken, findUser }
+module.exports = { generateToken }

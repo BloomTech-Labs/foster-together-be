@@ -11,11 +11,11 @@ addAdmin = async newUser => {
     .first()
   await db('users').insert({
     password: newUser.password,
-    admin_id: admin_id,
+    admin_id: admin_id.admin_id,
   })
   return await db('admins')
     .where('email', newUser.email)
-    .select('first_name')
+    .first()
 }
 
 module.exports = { addAdmin }
