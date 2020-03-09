@@ -19,6 +19,5 @@ jobs:
           PASSWORD_TEST: ${{ secrets.PASSWORD_TEST }},
           PORT_TEST: ${{ secrets.PORT_TEST }},
           NAME_TEST: ${{ secrets.NAME_TEST }},
-      - run: npx knex migrate:latest && npx knex seed:run
         with:
           coverageCommand: npm run coverage
