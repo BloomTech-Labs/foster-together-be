@@ -6,12 +6,10 @@ const router = require('express-promise-router')(),
 module.exports = router
 
 router.post('/', valBody, hashPassword, async (req, res) => {
-  const user = await addAdmin(req.body)
-  const token = generateToken(user)
-  res.status(201).json({
-    message: `${user.first_name} successfully created!`,
-    token: token,
-  })
+  const admin = await addAdmin(req.body)
+  console.log(admin)
+  const token = generateToken(admin)
+  res.status(201).json({ admin, token })
 })
 
 router.use((err, req, res, next) =>
