@@ -3,15 +3,15 @@ exports.up = knex =>
     table.increments('user_id')
     table.text('password').notNullable()
     table
-      .interger('admin_id')
+      .integer('admin_id')
       .references('admins.admin_id')
       .unique()
     table
-      .interger('family_id')
+      .integer('family_id')
       .references('families.family_id')
       .unique()
     table
-      .interger('neighbor_id')
+      .integer('neighbor_id')
       .references('neighbors.neighbor_id')
       .unique()
   })
