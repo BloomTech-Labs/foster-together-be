@@ -15,19 +15,17 @@ describe('/register', () => {
           password: 'atestpassword',
         })
 
-      expect(res.status).toBe(201)
-
       expect(JSON.parse(res.text).message).toBe('test successfully created!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
+
+      expect(res.status).toBe(201)
     })
   })
 
   describe('with missing request body', () => {
     test('returns a status of 500, a message, error, and no token', async () => {
       const res = await request(server).post('/api/register')
-
-      expect(res.status).toBe(500)
 
       expect(JSON.parse(res.text).message).toBe('Registration Failure')
 
@@ -36,6 +34,8 @@ describe('/register', () => {
       )
 
       expect(JSON.parse(res.text).token).toBeFalsy()
+
+      expect(res.status).toBe(500)
     })
   })
 })

@@ -10,11 +10,11 @@ describe('/login', () => {
         .post('/api/login')
         .send({ email: 'hope@email.com', password: 'hopehope' })
 
-      expect(res.status).toBe(200)
-
       expect(JSON.parse(res.text).message).toBe('Hope logged in!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
+
+      expect(res.status).toBe(200)
     })
   })
 
@@ -22,15 +22,15 @@ describe('/login', () => {
     test('returns a status of 500, a message, error, and no token', async () => {
       const res = await request(server).post('/api/login')
 
-      expect(res.status).toBe(500)
-
-      expect(JSON.parse(res.text).message).toBe('Login Failure')
-
       expect(JSON.parse(res.text).error).toBe(
         'Must send both an email and a password'
       )
 
+      expect(JSON.parse(res.text).message).toBe('Login Failure')
+
       expect(JSON.parse(res.text).token).toBeFalsy()
+
+      expect(res.status).toBe(500)
     })
   })
 })
