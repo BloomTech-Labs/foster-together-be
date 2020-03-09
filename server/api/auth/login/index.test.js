@@ -10,6 +10,8 @@ describe('/login', () => {
         .post('/api/login')
         .send({ email: 'hope@email.com', password: 'hopehope' })
 
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
       expect(JSON.parse(res.text).message).toBe('Hope logged in!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()

@@ -15,6 +15,8 @@ describe('/register', () => {
           password: 'atestpassword',
         })
 
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
       expect(JSON.parse(res.text).message).toBe('test successfully created!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
