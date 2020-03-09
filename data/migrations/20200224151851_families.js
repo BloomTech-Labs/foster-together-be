@@ -1,18 +1,18 @@
 exports.up = function(knex) {
   return knex.schema.createTable('families', tbl => {
     tbl.increments('family_id')
-    tbl.string('first_name').notNullable()
-    tbl.string('last_name').notNullable()
+    tbl.text('first_name').notNullable()
+    tbl.text('last_name').notNullable()
     tbl
-      .string('email')
+      .text('email')
       .notNullable()
       .unique()
     tbl
-      .string('phone')
+      .text('phone')
       .notNullable()
       .unique()
     tbl
-      .string('address')
+      .text('address')
       .notNullable()
       .unique()
     tbl

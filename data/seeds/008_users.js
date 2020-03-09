@@ -4,16 +4,14 @@ exports.seed = knex =>
     .then(() =>
       knex('users').insert([
         {
-          email: 'blob@blob.com',
-          username: 'blobblob',
           password:
             '$2a$14$FW.j/dIcqegesehfefcxVOsevIysPkkKi6O27/qpIk64qC8cxF9Ti',
+          admin_id: 1,
         },
         {
-          email: 'blah@blah.com',
-          username: 'blahblah',
           password:
             '$2a$14$3zoGnAEVVcVTz20glapt9eI2Y/WNLkbqM4H.F4xL2DI24xdT29Fs2',
+          admin_id: 2,
         },
       ])
     )

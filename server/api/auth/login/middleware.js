@@ -1,16 +1,19 @@
 const bcrypt = require('bcryptjs'),
-  { findUser } = require('../authTools')
+  db = require('../../../../data/db-config')
 
 const valBody = (req, res, next) => {
-  if (!req.body.username && !req.body.password)
+  if (!req.body.email && !req.body.password)
     throw new Error('Must send both a username and a password')
-  if (!req.body.username) throw new Error('Must send a username')
+  if (!req.body.email) throw new Error('Must send a username')
   if (!req.body.password) throw new Error('Must send a password')
   next()
 }
 
 const validatePassword = async (req, res, next) => {
-  const user = await findUser(req.body.username)
+  const user = await db('users as u')
+    .innerJoin('admins as a', 'u.admin_id', 'a.admin_id')
+    .where('email', req.body.email)
+    .first()
   if (!user || !bcrypt.compareSync(req.body.password, user.password))
     return res
       .status(401)
