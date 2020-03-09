@@ -5,11 +5,9 @@ const router = require('express-promise-router')(),
 module.exports = router
 
 router.post('/', valBody, validatePassword, (req, res) => {
-  const token = generateToken(req.body.user)
-  res.json({
-    message: `${req.body.user.first_name} logged in!`,
-    token,
-  })
+  const user = req.body.user
+  const token = generateToken(user)
+  res.json({ first_name: user.first_name, token })
 })
 
 router.use((err, req, res, next) =>
