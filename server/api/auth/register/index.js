@@ -7,9 +7,8 @@ module.exports = router
 
 router.post('/', valBody, hashPassword, async (req, res) => {
   const admin = await addAdmin(req.body)
-  console.log(admin)
   const token = generateToken(admin)
-  res.status(201).json({ admin, token })
+  res.status(201).json({ first_name: admin.first_name, token })
 })
 
 router.use((err, req, res, next) =>
