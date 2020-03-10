@@ -17,11 +17,7 @@ describe('/register', () => {
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
-      expect(JSON.parse(res.text).admin).toMatchObject({
-        admin_id: 4,
-        email: 'atest2@email.com',
-        first_name: 'test',
-      })
+      expect(JSON.parse(res.text).first_name).toBe('test')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
 

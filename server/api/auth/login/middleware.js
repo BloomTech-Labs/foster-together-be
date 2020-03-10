@@ -21,6 +21,7 @@ const validatePassword = async (req, res, next) => {
   req.body.user = {
     subject: user.user_id,
     first_name: user.first_name,
+    user_type: 'admin',
   }
   next()
 }
