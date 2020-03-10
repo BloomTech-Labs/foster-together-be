@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken'),
   { JWT_SECRET } = require('../../env')
 
 const authenticate = async (req, res, next) => {
-  const token = req.headers.authorization
-  if (!req.headers.authorization)
+  const token = req.headers.Authorization
+  if (!req.headers.Authorization)
     return res
       .status(401)
       .json({ message: 'Authentication Failure', token: false })
