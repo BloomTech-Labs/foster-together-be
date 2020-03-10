@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken'),
 
 const authenticate = async (req, res, next) => {
   const token = req.headers.Authorization
-  if (!req.headers.Authorization)
+  if (!token)
     return res
       .status(401)
       .json({ message: 'Authentication Failure', token: false })
