@@ -9,8 +9,9 @@
     "test": "jest --runInBand --forceExit",
     "watch": "jest --runInBand --detectOpenHandles",
     "coverage": "knex migrate:latest --env test && knex seed:run --env test && jest --coverage --runInBand --detectOpenHandles --forceExit || true",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "migrate:staging": "knex migrate:latest --env staging",
+    "seed:staging": "knex seed:run --env staging",
+    "migrate:production": "knex migrate:latest --env production"
   },
   "jest": {
     "collectCoverageFrom": [
