@@ -1,11 +1,11 @@
 {
   "name": "foster-together-be",
   "version": "1.0.0",
-  "description": "🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.",
+  "description": "Express API using knex to connect to a PostgreSQL database for a React front end client.",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
-    "start": "npx knex migrate:latest && npx knex seed:run && node index.js",
+    "start": "node index.js",
     "test": "jest --runInBand --forceExit",
     "watch": "jest --runInBand --detectOpenHandles",
     "coverage": "knex migrate:latest --env test && knex seed:run --env test && jest --coverage --runInBand --detectOpenHandles --forceExit || true"
