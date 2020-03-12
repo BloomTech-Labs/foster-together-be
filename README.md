@@ -1,41 +1,38 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
-#### Backend deployed at [Heroku](https://foster-together-back.herokuapp.com/) <br>
+#### Backend deployed using [AWS](https://api.fostertogether.co/) <br>
+
+### CI/CD Using CodePipeline, CodeBuild
+### Staging and Production deployed using Elastic Beanstalk and CloudFront
 
 ## Getting started
 
 To get the server running locally:
 
 - Clone this repo
+- Create local PostgreSQL database for development
+- Create local or AWS RDS database for testing
 - `npm i` to install all required dependencies
-- `npm run server` to start the local server
-- `npm test` to start server using testing environment
+- Set your enviroment variables. (details below)
+- `npm start` to start the local server
+- `npm test` to run all tests in the testing environment
+
+## Main Technologies Used:
 
 ### Express.js
+### PostgreSQL
+### Knex
 
-🚫 Why did you choose this framework?
-
-- Point One
-- Point Two
-- Point Three
-- Point Four
 
 ## Endpoints
 
-#### Admin Routes
+#### Auth Routes
 
 | Method | Endpoint            | Access Control | Description                                 |
 | ------ | ------------------- | -------------- | ------------------------------------------- |
-| POST   | `/api/admins/login` | admins         | Log in as an admin.                         |
-| POST   | `/api/admins`       | admins         | Create a new admin account.                 |
-| GET    | `/api/admins/:id`   | admins         | Returns the information for an admin by ID. |
-| DELETE | `/api/admins/:id`   | admins         | Delete an admin account.                    |
+| POST   | `/api/login`        | admins         | Log in as an admin.                         |
+| POST   | `/api/register`     | admins         | Create a new admin account.                 |
+| GET    | `/api/logout`       | admins         | Signs out an admin.                         |
 
 #### Neighbor Routes
 
@@ -65,7 +62,7 @@ To get the server running locally:
 
 ```
 {
-  admin_id: UUID,
+  admin_id: INCREMENT, // primary key
   email: STRING,
   display_name: STRING
 }
@@ -77,7 +74,7 @@ To get the server running locally:
 
 ```
 {
-  city_id: UUID,
+  city_id: INCREMENT, // primary key
   city: STRING
 }
 ```
@@ -88,7 +85,7 @@ To get the server running locally:
 
 ```
 {
-  state_id: UUID,
+  state_id: INCREMENT, // primary key
   state: STRING
 }
 ```
@@ -99,7 +96,7 @@ To get the server running locally:
 
 ```
 {
-  zip_id: UUID,
+  zip_id: INCREMENT, // primary key
   zip: STRING
 }
 ```
@@ -110,7 +107,7 @@ To get the server running locally:
 
 ```
 {
-  city_state_zip_id: UUID,
+  city_state_zip_id: INCREMENT, // primary key
   //foreign keys
   city_id: INTEGER,
   state_id: INTEGER,
@@ -124,7 +121,7 @@ To get the server running locally:
 
 ```
 {
-  family_id: UUID,
+  family_id: INCREMENT, // primary key
   first_name: STRING,
   last_name: STRING,
   email: STRING,
@@ -140,7 +137,7 @@ To get the server running locally:
 
 ```
 {
-  neighbor_id: UUID,
+  neighbor_id: INCREMENT, // primary key
   first_name: STRING,
   last_name: STRING,
   email: STRING,
@@ -172,10 +169,18 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-* PORT - optional
-* NODE_ENV - set to "development" until ready for "production"
-* DATABASE_URL - production DB url
-* TEST_DB - test DB url
+All enviroment variables ending in test are set up differently than a typical postgres URL to account for AWS RDS. 
+This allows CI on AWS to use RDS databases to test on, keeping production exactly the same as staging and testing. 
+
+* PORT - Port you would like to run sever on.
+* NODE_ENV - set to "development" 
+* DATABASE_URL - development DB url (postgres)
+* HOSTNAME_TEST - postgres hostname
+* USERNAME_TEST - postgres username
+* PASSWORD_TEST - postgres paswword
+* PORT_TEST - postgres port
+* NAME_TEST - database
+* JWT_SECRET - string for jwt secret
 
 ## Contributing
 
