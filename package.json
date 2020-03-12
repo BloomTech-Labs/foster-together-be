@@ -8,9 +8,7 @@
     "start": "node index.js",
     "test": "jest --runInBand --forceExit",
     "watch": "jest --runInBand --detectOpenHandles",
-    "coverage": "knex migrate:latest --env test && knex seed:run --env test && jest --coverage --runInBand --detectOpenHandles --forceExit || true",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "coverage": "knex migrate:latest --env test && knex seed:run --env test && jest --coverage --runInBand --detectOpenHandles --forceExit || true"
   },
   "jest": {
     "collectCoverageFrom": [
