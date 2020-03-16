@@ -1,9 +1,9 @@
-version: "2"
+version: '2'
 exclude_patterns:
-- "tests/"
-- "spec/"
-- "**/vendor/"
-- "**/node_modules/"
-- "**/__tests__/**",
-- "**/data/",
-- "**/coverage/"
+  - 'tests/'
+  - 'spec/'
+  - '**/vendor/'
+  - '**/node_modules/'
+  - '**/__tests__/**'
+  - '**/data/'
+  - '**/coverage/'
