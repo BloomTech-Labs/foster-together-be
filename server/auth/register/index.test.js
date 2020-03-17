@@ -8,7 +8,7 @@ describe('/register', () => {
   describe('with correct request body', () => {
     test('returns a status of 201, a message, and a token', async () => {
       const res = await request(server)
-        .post('/api/register')
+        .post('/register')
         .send({
           email: 'atest2@email.com',
           first_name: 'test',
@@ -27,9 +27,9 @@ describe('/register', () => {
 
   describe('with missing request body', () => {
     test('returns a status of 500, a message, error, and no token', async () => {
-      const res = await request(server).post('/api/register')
+      const res = await request(server).post('/register')
 
-      expect(JSON.parse(res.text).message).toBe('Registration Failure')
+      expect(JSON.parse(res.text).message).toBe('Uh Oh! 500 Error!')
 
       expect(JSON.parse(res.text).error).toBe(
         'Must send first_name, password and email address!'

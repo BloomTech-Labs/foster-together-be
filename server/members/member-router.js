@@ -7,7 +7,7 @@ const router = require('express-promise-router')(),
 router.post('/:membertype', validateSignup, async (req, res) => {
   const { membertype } = req.params
   const { id } = await Members.add(membertype, req.body)
-  const saved = await Members.findById(membertype, id)
+  const saved = await Members.findBy(membertype, ['id', id])
   res.status(201).json({ message: 'Member successfully added.', saved })
 })
 
@@ -24,7 +24,7 @@ router.get('/:membertype', async (req, res) => {
 
 router.get('/:membertype/:id', validateId(), async (req, res) => {
   const { membertype, id } = req.params
-  const member = await Members.findBy(membertype, [`${membertype}.id`, id])
+  const member = (await Members.findBy(membertype, ['id', id]))[0]
   res.status(200).json(member)
 })
 

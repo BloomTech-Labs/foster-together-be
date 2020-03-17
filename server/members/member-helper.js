@@ -20,7 +20,7 @@ async function add(membertype, data) {
 
   if (!state) state = (await Locations.addState({ state: data.state }))[0]
 
-  if (!zip) zip = (await Locations.addZip({ zip: Number(data.zip) }))[0]
+  if (!zip) zip = (await Locations.addZip({ zip: data.zip }))[0]
 
   let cityStateZip = await Locations.findByLocation(city.id, state.id, zip.id)
 
@@ -79,7 +79,7 @@ function findBy(membertype, filter) {
     )
     .modify(function(queryBuilder) {
       if (filter) {
-        queryBuilder.where(`${filter[0]}`, filter[1])
+        queryBuilder.where(`${membertype}.${filter[0]}`, filter[1])
       }
     })
 }
