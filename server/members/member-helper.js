@@ -6,7 +6,7 @@ module.exports = {
   add,
   find,
   findMembertype,
-  findById,
+  findBy,
   update,
   remove,
 }
@@ -29,24 +29,19 @@ async function add(membertype, data) {
       await Locations.addCityStateZip(city.id, state.id, zip.id)
     )[0]
 
-  return db(membertype).insert(
-    {
-      first_name: data.first_name,
-      last_name: data.last_name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      city_state_zip_id: cityStateZip.id,
-    },
-    [
-      'first_name',
-      'last_name',
-      'email',
-      'phone',
-      'address',
-      'city_state_zip_id',
-    ]
-  )
+  return (
+    await db(membertype).insert(
+      {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        city_state_zip_id: cityStateZip.id,
+      },
+      ['id']
+    )
+  )[0]
 }
 
 async function find() {
@@ -58,32 +53,14 @@ async function find() {
 }
 
 async function findMembertype(membertype) {
-  const memberArray = (
-    await db(membertype)
-      .join(
-        'city_state_zip as csz',
-        'csz.id',
-        `${membertype}.city_state_zip_id`
-      )
-      .join('cities as c', 'c.id', 'csz.city_id')
-      .join('states as s', 's.id', 'csz.state_id')
-      .join('zips as z', 'z.id', 'csz.zip_id')
-      .select(
-        `${membertype}.id`,
-        `${membertype}.first_name`,
-        `${membertype}.last_name`,
-        `${membertype}.email`,
-        `${membertype}.phone`,
-        `${membertype}.address`,
-        'c.city',
-        's.state',
-        'z.zip'
-      )
-  ).map(member => ({ ...member, type: membertype }))
+  const memberArray = (await findBy(membertype)).map(member => ({
+    ...member,
+    type: membertype,
+  }))
   return memberArray
 }
 
-function findById(membertype, id) {
+function findBy(membertype, filter) {
   return db(membertype)
     .join('city_state_zip as csz', 'csz.id', `${membertype}.city_state_zip_id`)
     .join('cities as c', 'c.id', 'csz.city_id')
@@ -100,7 +77,11 @@ function findById(membertype, id) {
       's.state',
       'z.zip'
     )
-    .where(`${membertype}.id`, id)
+    .modify(function(queryBuilder) {
+      if (filter) {
+        queryBuilder.where(`${filter[0]}`, filter[1])
+      }
+    })
 }
 
 function update(membertype, id, data) {

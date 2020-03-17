@@ -1,6 +1,7 @@
 const router = require('express-promise-router')(),
   { valBody, validatePassword } = require('./middleware'),
-  { generateToken } = require('../authTools')
+  { generateToken } = require('../authTools'),
+  { errorHandling } = require('../../middleware')
 
 module.exports = router
 
@@ -10,10 +11,4 @@ router.post('/', valBody, validatePassword, (req, res) => {
   res.json({ first_name, user_type, token })
 })
 
-router.use((err, req, res, next) =>
-  res.status(500).json({
-    message: 'Login Failure',
-    error: err.message.replace(/\\/g, ''),
-    token: false,
-  })
-)
+router.use(errorHandling)

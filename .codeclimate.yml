@@ -7,3 +7,4 @@ exclude_patterns:
   - '**/__tests__/**'
   - '**/data/'
   - '**/coverage/'
+  - '**/*.test.js'
