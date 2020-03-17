@@ -8,3 +8,4 @@ exclude_patterns:
   - '**/data/'
   - '**/coverage/'
   - '**/*.test.js'
+  - 'knexfile.js'
