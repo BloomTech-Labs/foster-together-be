@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken'),
-  { JWT_SECRET } = require('../../../env')
+  { JWT_SECRET } = require('../../env')
 
 const generateToken = user => {
   const payload = {

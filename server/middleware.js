@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'),
-  { JWT_SECRET } = require('../../env')
+  { JWT_SECRET } = require('../env')
 
-const authenticate = async (req, res, next) => {
+const authenticate = (req, res, next) => {
   const token = req.headers.Authorization
   if (!token)
     return res
@@ -17,4 +17,10 @@ const authenticate = async (req, res, next) => {
   })
 }
 
-module.exports = { authenticate }
+const errorHandling = (err, req, res, next) =>
+  res.status(500).json({
+    message: 'Uh Oh! 500 Error!',
+    error: err.message.replace(/\\/g, ''),
+  })
+
+module.exports = { authenticate, errorHandling }

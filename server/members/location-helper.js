@@ -1,4 +1,4 @@
-const db = require('../../../data/db-config.js')
+const db = require('../../data/db-config.js')
 
 module.exports = {
   addCity,
@@ -20,7 +20,7 @@ module.exports = {
 // CITIES
 
 function addCity(cityData) {
-  return db('cities').insert(cityData, ['city_id', 'city'])
+  return db('cities').insert(cityData, ['id', 'city'])
 }
 
 // return array of all cities
@@ -30,7 +30,7 @@ function findCities() {
 
 function findCityById(id) {
   return db('cities')
-    .where('city_id', id)
+    .where('id', id)
     .first()
 }
 
@@ -43,7 +43,7 @@ function findCityByName(name) {
 // STATES
 
 function addState(stateData) {
-  return db('states').insert(stateData, ['state_id', 'state'])
+  return db('states').insert(stateData, ['id', 'state'])
 }
 
 // return array of all states
@@ -53,7 +53,7 @@ function findStates() {
 
 function findStateById(id) {
   return db('states')
-    .where('state_id', id)
+    .where('id', id)
     .first()
 }
 
@@ -66,7 +66,7 @@ function findStateByName(name) {
 // ZIPS
 
 function addZip(zipData) {
-  return db('zips').insert(zipData, ['zip_id', 'zip'])
+  return db('zips').insert(zipData, ['id', 'zip'])
 }
 
 // return array of all cities
@@ -76,7 +76,7 @@ function findZips() {
 
 function findZipById(id) {
   return db('zips')
-    .where('zip_id', id)
+    .where('id', id)
     .first()
 }
 
@@ -101,6 +101,6 @@ function addCityStateZip(cityId, stateId, zipId) {
       state_id: stateId,
       zip_id: zipId,
     },
-    ['city_state_zip_id', 'city_id', 'state_id', 'zip_id']
+    ['id', 'city_id', 'state_id', 'zip_id']
   )
 }

@@ -1,14 +1,14 @@
-const server = require('../../server'),
+const server = require('../server'),
   request = require('supertest'),
-  db = require('../../../data/db-config')
+  db = require('../../data/db-config')
 
-describe('api/families', () => {
+describe('/members', () => {
   beforeAll(() => db.seed.run())
 
   describe(`POST '/'`, () => {
     test('should respond with a status 201 and a json message for success', async () => {
       const res = await request(server)
-        .post('/api/families')
+        .post('/members/neighbors')
         .send({
           first_name: 'John',
           last_name: 'Smith',
@@ -17,12 +17,14 @@ describe('api/families', () => {
           address: '1234 Main Street, APT 5',
           city: 'New Haven',
           state: 'Connecticut',
-          zip: '06516',
+          zip: '06512',
         })
+
+      expect(JSON.parse(res.text).error).toBe(undefined)
 
       expect(res.status).toBe(201)
 
-      expect(JSON.parse(res.text).message).toBe('Family successfully added.')
+      expect(JSON.parse(res.text).message).toBe('Member successfully added.')
 
       expect(JSON.parse(res.text).saved[0]).toMatchObject({
         first_name: 'John',
@@ -30,26 +32,28 @@ describe('api/families', () => {
         email: 'john.smith@email.com',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
-        city_state_zip_id: 4,
+        city: 'New Haven',
+        state: 'Connecticut',
+        zip: '06512',
       })
     })
   })
 
   describe(`GET '/'`, () => {
-    test('should respond with status 200, and an array of families', async () => {
-      const res = await request(server).get('/api/families')
+    test('should respond with status 200, and an array of neighbors', async () => {
+      const res = await request(server).get('/members/neighbors')
 
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text).length).toBe(4)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
-        family_id: 1,
-        first_name: 'Joseph',
-        last_name: 'Rodriguez',
-        email: 'Joseph49er@yahoo.com',
-        phone: '200-800-7648',
-        address: '1245 Wynnstone Dr',
+        id: 1,
+        first_name: 'Eric',
+        last_name: 'Grece',
+        email: 'GreceMana@yahoo.com',
+        phone: '202-808-6542',
+        address: '629 W Cienga Boul',
         city: 'Boulder',
         state: 'Colorado',
         zip: '80301',
@@ -58,18 +62,18 @@ describe('api/families', () => {
   })
 
   describe(`GET '/:id'`, () => {
-    test('should respond with status 200, and the requested family', async () => {
-      const res = await request(server).get('/api/families/1')
+    test('should respond with status 200, and the requested neighbor', async () => {
+      const res = await request(server).get('/members/neighbors/1')
 
-      expect(res.status).toBe(200)
+      // expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)).toMatchObject({
-        family_id: 1,
-        first_name: 'Joseph',
-        last_name: 'Rodriguez',
-        email: 'Joseph49er@yahoo.com',
-        phone: '200-800-7648',
-        address: '1245 Wynnstone Dr',
+        id: 1,
+        first_name: 'Eric',
+        last_name: 'Grece',
+        email: 'GreceMana@yahoo.com',
+        phone: '202-808-6542',
+        address: '629 W Cienga Boul',
         city: 'Boulder',
         state: 'Colorado',
         zip: '80301',
@@ -78,9 +82,9 @@ describe('api/families', () => {
   })
 
   describe(`PUT '/:id'`, () => {
-    test('should respond with status 200, and the updated family', async () => {
+    test('should respond with status 200, and the updated neighbor', async () => {
       const res = await request(server)
-        .put('/api/families/1')
+        .put('/members/neighbors/1')
         .send({
           first_name: 'Jane',
           last_name: 'Smith',
@@ -102,18 +106,18 @@ describe('api/families', () => {
   })
 
   describe(`DELETE '/:id'`, () => {
-    test('should respond with status 200, and the requested family', async () => {
-      const res = await request(server).delete('/api/families/4')
+    test('should respond with status 200, and the requested neighbor', async () => {
+      const res = await request(server).delete('/members/neighbors/4')
 
       expect(res.status).toBe(200)
 
-      expect(JSON.parse(res.text).message).toBe('family successfully deleted.')
+      expect(JSON.parse(res.text).message).toBe('Member successfully deleted.')
     })
   })
 
   describe(`custom error handling`, () => {
     test('should respond with status 500, a message, and the original thrown error', async () => {
-      const res = await request(server).get('/api/families/a')
+      const res = await request(server).get('/members/neighbors/a')
 
       expect(res.status).toBe(500)
 
