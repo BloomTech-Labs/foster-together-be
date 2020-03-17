@@ -1,6 +1,6 @@
-const db = require('../../../data/db-config.js')
+const db = require('../../data/db-config.js')
 
-const Locations = require('../locations/location-helper.js')
+const Locations = require('./location-helper.js')
 
 module.exports = {
   add,

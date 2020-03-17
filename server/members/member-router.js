@@ -1,7 +1,7 @@
 const router = require('express-promise-router')()
 
-const validateId = require('../../../middleware/validate-id.js')
-const validateSignup = require('../../../middleware/validate-signup.js')
+const validateId = require('../../middleware/validate-id.js')
+const validateSignup = require('../../middleware/validate-signup.js')
 
 const Members = require('./member-helper.js')
 
