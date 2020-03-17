@@ -7,11 +7,11 @@ addAdmin = async newUser => {
   })
   const admin_id = await db('admins')
     .where('email', newUser.email)
-    .select('admin_id')
+    .select('id')
     .first()
   await db('users').insert({
     password: newUser.password,
-    admin_id: admin_id.admin_id,
+    admin_id: admin_id.id,
   })
   return await db('admins')
     .where('email', newUser.email)

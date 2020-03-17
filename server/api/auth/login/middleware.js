@@ -11,7 +11,7 @@ const valBody = (req, res, next) => {
 
 const validatePassword = async (req, res, next) => {
   const user = await db('users as u')
-    .innerJoin('admins as a', 'u.admin_id', 'a.admin_id')
+    .innerJoin('admins as a', 'u.admin_id', 'a.id')
     .where('email', req.body.email)
     .first()
   if (!user || !bcrypt.compareSync(req.body.password, user.password))

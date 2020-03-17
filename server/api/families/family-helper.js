@@ -16,15 +16,9 @@ async function add(familyData) {
   let state = await Locations.findStateByName(familyData.state)
   let zip = await Locations.findByZip(Number(familyData.zip))
 
-  if (!city) {
-    let newCity = await Locations.addCity({ city: familyData.city })
-    city = newCity[0]
-  }
+  if (!city) city = (await Locations.addCity({ city: familyData.city }))[0]
 
-  if (!state) {
-    let newState = await Locations.addState({ state: familyData.state })
-    state = newState[0]
-  }
+  if (!state) state = (await Locations.addState({ state: familyData.state }))[0]
 
   if (!zip) {
     let newZip = await Locations.addZip({ zip: Number(familyData.zip) })
