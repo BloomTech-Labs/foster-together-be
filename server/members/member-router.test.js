@@ -18,6 +18,8 @@ describe('/members', () => {
           city: 'New Haven',
           state: 'Connecticut',
           zip: '06512',
+          password: '',
+          confirmPassword: '',
         })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
