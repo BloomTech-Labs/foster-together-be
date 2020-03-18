@@ -8,17 +8,17 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: '12'
+          node-version: "12"
       - run: npm install
       - run: sudo npm install -g knex
       - uses: paambaati/codeclimate-action@v2.4.0
         env:
-          NODE_ENV: 'test'
-          CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }},
           HOSTNAME_TEST: ${{ secrets.HOSTNAME_TEST }},
           USERNAME_TEST: ${{ secrets.USERNAME_TEST }},
           PASSWORD_TEST: ${{ secrets.PASSWORD_TEST }},
           PORT_TEST: ${{ secrets.PORT_TEST }},
           NAME_TEST: ${{ secrets.NAME_TEST }},
+          NODE_ENV: 'test'
         with:
           coverageCommand: npm run coverage
