@@ -17,6 +17,8 @@ describe('validate signup', () => {
         city: 'New Haven',
         state: 'Connecticut',
         zip: '06513',
+        password: '',
+        confirmPassword: '',
       },
     }
     validateSignup(req, res, next)
