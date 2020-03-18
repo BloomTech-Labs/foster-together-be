@@ -10,6 +10,8 @@ function validateSignup(req, res, next) {
     'city',
     'state',
     'zip',
+    'password',
+    'confirmPassword',
   ]
   const difference = keyArray
     .filter(x => !expectedKeys.includes(x))
