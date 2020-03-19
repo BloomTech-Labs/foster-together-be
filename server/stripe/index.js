@@ -1,4 +1,4 @@
-const { STRIPE, SUCCESS_URL, CANCEL_URL } = require('../../env'),
+const { STRIPE } = require('../../env'),
   stripe = require('stripe')(STRIPE),
   router = require('express-promise-router')(),
   { errorHandling } = require('../middleware')

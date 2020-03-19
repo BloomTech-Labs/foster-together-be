@@ -11,6 +11,4 @@ module.exports = {
   NAME_TEST: process.env.NAME_TEST, // test DB
   JWT_SECRET: process.env.JWT_SECRET, // jwt secret must be a single string
   STRIPE: process.env.STRIPE, // stripe key
-  SUCCESS_URL: process.env.SUCCESS_URL, // payment success address
-  CANCEL_URL: process.env.CANCEL_URL, // payment failure address
 }
