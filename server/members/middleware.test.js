@@ -1,4 +1,4 @@
-const validateSignup = require('./validate-signup.js')
+const { validateSignup } = require('./middleware.js')
 
 describe('validate signup', () => {
   let req = {}
@@ -17,6 +17,8 @@ describe('validate signup', () => {
         city: 'New Haven',
         state: 'Connecticut',
         zip: '06513',
+        password: '',
+        confirmPassword: '',
       },
     }
     validateSignup(req, res, next)

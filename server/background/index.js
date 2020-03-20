@@ -1,7 +1,7 @@
 const { STRIPE } = require('../../env'),
   stripe = require('stripe')(STRIPE),
   router = require('express-promise-router')(),
-  { errorHandling } = require('../middleware')
+  { errorHandling } = require('../middlewareAndTools')
 
 module.exports = router
 

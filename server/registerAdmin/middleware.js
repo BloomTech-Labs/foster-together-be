@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs')
-
 const valBody = (req, res, next) => {
   if (!req.body.first_name && !req.body.password && !req.body.email)
     throw new Error('Must send first_name, password and email address!')
@@ -9,9 +7,4 @@ const valBody = (req, res, next) => {
   next()
 }
 
-const hashPassword = (req, res, next) => {
-  req.body.password = bcrypt.hashSync(req.body.password, 14)
-  next()
-}
-
-module.exports = { valBody, hashPassword }
+module.exports = { valBody }
