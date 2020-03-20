@@ -9,13 +9,6 @@ exports.up = function(knex) {
     .alterTable('admins', tbl => {
       tbl.dropColumn('email')
     })
-    .alterTable('users', tbl => {
-      tbl
-        .text('email')
-        .unique()
-        .notNullable()
-        .index()
-    })
 }
 
 exports.down = function(knex) {}
