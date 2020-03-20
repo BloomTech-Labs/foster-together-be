@@ -1,6 +1,6 @@
-const server = require('../../server'),
+const server = require('../server'),
   request = require('supertest'),
-  db = require('../../../data/db-config')
+  db = require('../../data/db-config')
 
 describe('/login', () => {
   beforeAll(async () => await db.seed.run())

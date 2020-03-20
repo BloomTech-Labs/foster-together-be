@@ -1,4 +1,4 @@
-const validateSignup = require('./validate-signup.js')
+const { validateSignup } = require('./middleware.js')
 
 describe('validate signup', () => {
   let req = {}

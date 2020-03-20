@@ -1,12 +1,5 @@
 const db = require('../../data/db-config.js'),
-  {
-    add,
-    find,
-    findBy,
-    findMembertype,
-    update,
-    remove,
-  } = require('./member-helper')
+  { add, find, findBy, update, remove } = require('./member-helper')
 
 describe('member-helper', () => {
   describe('CREATE', () => {

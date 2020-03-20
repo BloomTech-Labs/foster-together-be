@@ -1,4 +1,4 @@
-function validateSignup(req, res, next) {
+const validateSignup = (req, res, next) => {
   const body = req.body
   const keyArray = Object.keys(body)
   const expectedKeys = [
@@ -26,4 +26,4 @@ function validateSignup(req, res, next) {
   next()
 }
 
-module.exports = validateSignup
+module.exports = { validateSignup }

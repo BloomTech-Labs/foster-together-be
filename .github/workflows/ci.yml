@@ -19,5 +19,6 @@ jobs:
           PASSWORD_TEST: ${{ secrets.PASSWORD_TEST }}
           PORT_TEST: ${{ secrets.PORT_TEST }}
           NAME_TEST: ${{ secrets.NAME_TEST }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         with:
           coverageCommand: npm run coverage

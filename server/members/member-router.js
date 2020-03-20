@@ -1,7 +1,6 @@
 const router = require('express-promise-router')(),
-  validateId = require('../../middleware/validate-id.js'),
-  validateSignup = require('../../middleware/validate-signup.js'),
-  { errorHandling } = require('../middleware'),
+  { errorHandling, validateId } = require('../middlewareAndTools'),
+  { validateSignup } = require('./middleware'),
   Members = require('./member-helper.js')
 
 router.post('/:membertype', validateSignup, async (req, res) => {
@@ -22,19 +21,19 @@ router.get('/:membertype', async (req, res) => {
   res.status(200).json(allMemberType)
 })
 
-router.get('/:membertype/:id', validateId(), async (req, res) => {
+router.get('/:membertype/:id', validateId, async (req, res) => {
   const { membertype, id } = req.params
   const member = (await Members.findBy(membertype, ['id', id]))[0]
   res.status(200).json(member)
 })
 
-router.put('/:membertype/:id', validateId(), async (req, res) => {
+router.put('/:membertype/:id', validateId, async (req, res) => {
   const { membertype, id } = req.params
   const updated = await Members.update(membertype, id, req.body)
   res.status(200).json(updated)
 })
 
-router.delete('/:membertype/:id', validateId(), async (req, res) => {
+router.delete('/:membertype/:id', validateId, async (req, res) => {
   const { membertype, id } = req.params
   await Members.remove(membertype, id)
   res.status(200).json({ message: 'Member successfully deleted.' })

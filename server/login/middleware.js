@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs'),
-  db = require('../../../data/db-config')
+  db = require('../../data/db-config')
 
 const valBody = (req, res, next) => {
   if (!req.body.email && !req.body.password)

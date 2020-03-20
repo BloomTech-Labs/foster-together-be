@@ -1,5 +1,5 @@
 const router = require('express-promise-router')(),
-  { errorHandling } = require('../../middleware')
+  { errorHandling } = require('../middlewareAndTools')
 
 module.exports = router
 

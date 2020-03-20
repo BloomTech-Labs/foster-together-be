@@ -1,7 +1,6 @@
 const router = require('express-promise-router')(),
   { valBody, validatePassword } = require('./middleware'),
-  { generateToken } = require('../authTools'),
-  { errorHandling } = require('../../middleware')
+  { errorHandling, generateToken } = require('../middlewareAndTools')
 
 module.exports = router
 
