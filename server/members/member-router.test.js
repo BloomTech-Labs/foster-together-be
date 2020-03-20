@@ -45,6 +45,8 @@ describe('/members', () => {
     test('should respond with status 200, and an array of neighbors', async () => {
       const res = await request(server).get('/members/neighbors')
 
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text).length).toBe(4)
@@ -67,7 +69,9 @@ describe('/members', () => {
     test('should respond with status 200, and the requested neighbor', async () => {
       const res = await request(server).get('/members/neighbors/1')
 
-      // expect(res.status).toBe(200)
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
+      expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)).toMatchObject({
         id: 1,
@@ -90,17 +94,17 @@ describe('/members', () => {
         .send({
           first_name: 'Jane',
           last_name: 'Smith',
-          email: 'jane.smith@email.com',
           phone: '503-555-8655',
           address: '1234 Main Street, APT 7',
         })
+
+      expect(JSON.parse(res.text).error).toBe(undefined)
 
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
         first_name: 'Jane',
         last_name: 'Smith',
-        email: 'jane.smith@email.com',
         phone: '503-555-8655',
         address: '1234 Main Street, APT 7',
       })
@@ -110,6 +114,8 @@ describe('/members', () => {
   describe(`DELETE '/:id'`, () => {
     test('should respond with status 200, and the requested neighbor', async () => {
       const res = await request(server).delete('/members/neighbors/4')
+
+      expect(JSON.parse(res.text).error).toBe(undefined)
 
       expect(res.status).toBe(200)
 

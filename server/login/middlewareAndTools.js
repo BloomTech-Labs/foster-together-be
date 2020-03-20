@@ -29,4 +29,9 @@ const validatePassword = async (req, res, next) => {
   next()
 }
 
-module.exports = { valBody, validatePassword }
+const getUserDetails = async (id, membertype) =>
+  await db(membertype)
+    .where('id', id)
+    .first()
+
+module.exports = { valBody, validatePassword, getUserDetails }

@@ -67,14 +67,9 @@ async function findMembertype(membertype) {
 }
 
 function findBy(membertype, filter) {
-  return db(membertype)
-    .join('users as u', function() {
-      this.on('u.family_id', '=', `${membertype}.id`).orOn(
-        'u.neighbor_id',
-        '=',
-        `${membertype}.id`
-      )
-    })
+  const membertypeID = membertype === 'families' ? 'family_id' : 'neighbor_id'
+  return db('users as u')
+    .join(`${membertype}`, `u.${membertypeID}`, `${membertype}.id`)
     .join('city_state_zip as csz', 'csz.id', `${membertype}.city_state_zip_id`)
     .join('cities as c', 'c.id', 'csz.city_id')
     .join('states as s', 's.id', 'csz.state_id')
@@ -104,11 +99,10 @@ function update(membertype, id, data) {
       {
         first_name: data.first_name,
         last_name: data.last_name,
-        email: data.email,
         phone: data.phone,
         address: data.address,
       },
-      ['first_name', 'last_name', 'email', 'phone', 'address']
+      ['first_name', 'last_name', 'phone', 'address']
     )
 }
 
