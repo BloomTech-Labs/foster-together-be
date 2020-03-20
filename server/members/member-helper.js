@@ -35,7 +35,6 @@ async function add(membertype, data) {
       {
         first_name: data.first_name,
         last_name: data.last_name,
-        email: data.email,
         phone: data.phone,
         address: data.address,
         city_state_zip_id: cityStateZip.id,
@@ -45,10 +44,10 @@ async function add(membertype, data) {
   )[0]
 }
 
-async function addUser(membertype, id, data) {
+async function addUser(membertype, id, { email, password }) {
   membertype === 'families'
-    ? await db('users').insert({ password: data.password, family_id: id })
-    : await db('users').insert({ password: data.password, neighbor_id: id })
+    ? await db('users').insert({ email, password, family_id: id })
+    : await db('users').insert({ email, password, neighbor_id: id })
 }
 
 async function find() {
@@ -69,6 +68,13 @@ async function findMembertype(membertype) {
 
 function findBy(membertype, filter) {
   return db(membertype)
+    .join('users as u', function() {
+      this.on('u.family_id', '=', `${membertype}.id`).orOn(
+        'u.neighbor_id',
+        '=',
+        `${membertype}.id`
+      )
+    })
     .join('city_state_zip as csz', 'csz.id', `${membertype}.city_state_zip_id`)
     .join('cities as c', 'c.id', 'csz.city_id')
     .join('states as s', 's.id', 'csz.state_id')
@@ -77,7 +83,7 @@ function findBy(membertype, filter) {
       `${membertype}.id`,
       `${membertype}.first_name`,
       `${membertype}.last_name`,
-      `${membertype}.email`,
+      `u.email`,
       `${membertype}.phone`,
       `${membertype}.address`,
       'c.city',
