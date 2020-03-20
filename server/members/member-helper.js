@@ -9,6 +9,7 @@ module.exports = {
   findBy,
   update,
   remove,
+  addUser,
 }
 
 async function add(membertype, data) {
@@ -42,6 +43,12 @@ async function add(membertype, data) {
       ['id']
     )
   )[0]
+}
+
+async function addUser(membertype, id, data) {
+  membertype === 'families'
+    ? await db('users').insert({ password: data.password, family_id: id })
+    : await db('users').insert({ password: data.password, neighbor_id: id })
 }
 
 async function find() {
