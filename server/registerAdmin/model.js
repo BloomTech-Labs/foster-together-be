@@ -1,21 +1,13 @@
 const db = require('../../data/db-config')
 
-addAdmin = async newUser => {
-  await db('admins').insert({
-    email: newUser.email,
-    first_name: newUser.first_name,
-  })
-  const admin_id = await db('admins')
-    .where('email', newUser.email)
-    .select('id')
-    .first()
+addAdmin = async ({ first_name, email, password }) => {
+  const { id } = (await db('admins').insert({ first_name }, ['id']))[0]
   await db('users').insert({
-    password: newUser.password,
-    admin_id: admin_id.id,
+    email,
+    password,
+    admin_id: id,
   })
-  return await db('admins')
-    .where('email', newUser.email)
-    .first()
+  return { id, first_name }
 }
 
 module.exports = { addAdmin }

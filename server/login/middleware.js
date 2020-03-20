@@ -10,8 +10,7 @@ const valBody = (req, res, next) => {
 }
 
 const validatePassword = async (req, res, next) => {
-  const user = await db('users as u')
-    .innerJoin('admins as a', 'u.admin_id', 'a.id')
+  const user = await db('users')
     .where('email', req.body.email)
     .first()
   if (!user || !bcrypt.compareSync(req.body.password, user.password))
@@ -19,9 +18,13 @@ const validatePassword = async (req, res, next) => {
       .status(401)
       .json({ message: 'Authorization failed!', token: false })
   req.body.user = {
-    subject: user.user_id,
-    first_name: user.first_name,
-    user_type: 'admin',
+    subject: user.id,
+    id: user.admin_id || user.family_id || user.neighbor_id,
+    membertype: user.admin_id
+      ? 'admins'
+      : user.family_id
+      ? 'families'
+      : 'neighbors',
   }
   next()
 }
