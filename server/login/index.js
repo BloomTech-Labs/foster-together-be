@@ -1,13 +1,18 @@
 const router = require('express-promise-router')(),
-  { valBody, validatePassword } = require('./middleware'),
+  {
+    valBody,
+    validatePassword,
+    getUserDetails,
+  } = require('./middlewareAndTools'),
   { errorHandling, generateToken } = require('../middlewareAndTools')
 
 module.exports = router
 
-router.post('/', valBody, validatePassword, (req, res) => {
-  const { user_type, first_name } = req.body.user
+router.post('/', valBody, validatePassword, async (req, res) => {
+  const { id, membertype } = req.body.user
   const token = generateToken(req.body.user)
-  res.json({ first_name, user_type, token })
+  const details = await getUserDetails(id, membertype)
+  res.json({ id, membertype, ...details, token })
 })
 
 router.use(errorHandling)

@@ -3,9 +3,9 @@ exports.seed = function(knex) {
   return knex('admins').then(function() {
     // Inserts seed entries
     return knex('admins').insert([
-      { email: 'hope@email.com', first_name: 'Hope' },
-      { email: 'abbie@email.com', first_name: 'Abbie' },
-      { email: 'grace@email.com', first_name: 'Grace' },
+      { first_name: 'Hope' },
+      { first_name: 'Abbie' },
+      { first_name: 'Grace' },
     ])
   })
 }

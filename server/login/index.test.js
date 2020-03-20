@@ -8,7 +8,7 @@ describe('/login', () => {
     test('returns a status of 200, a message, and a token', async () => {
       const res = await request(server)
         .post('/login')
-        .send({ email: 'hope@email.com', password: 'hopehope' })
+        .send({ email: 'hope@email.com', password: 'hope' })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
