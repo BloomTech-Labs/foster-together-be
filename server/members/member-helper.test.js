@@ -10,6 +10,7 @@ describe('member-helper', () => {
         first_name: 'John',
         last_name: 'Smith',
         email: 'john.smith@email.com',
+        password: 'john',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
         city: 'Albuquerque',

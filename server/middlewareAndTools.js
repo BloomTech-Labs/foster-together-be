@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken'),
 
 // Check if a members ID is valid.
 const validateId = async (req, res, next) => {
-  const { membertype, id } = req.params
-  const resource = await db(membertype)
+  const { id } = req.params
+  const resource = await db('members')
     .where('id', id)
     .first()
   if (!resource) {

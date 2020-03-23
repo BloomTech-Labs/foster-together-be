@@ -43,7 +43,7 @@ describe('/members', () => {
 
   describe(`GET '/'`, () => {
     test('should respond with status 200, and an array of neighbors', async () => {
-      const res = await request(server).get('/members/neighbors')
+      const res = await request(server).get('/members/?type=neighbors')
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
@@ -52,7 +52,7 @@ describe('/members', () => {
       expect(JSON.parse(res.text).length).toBe(4)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
-        id: 1,
+        id: 4,
         first_name: 'Eric',
         last_name: 'Grece',
         email: 'GreceMana@yahoo.com',
@@ -66,15 +66,15 @@ describe('/members', () => {
   })
 
   describe(`GET '/:id'`, () => {
-    test('should respond with status 200, and the requested neighbor', async () => {
-      const res = await request(server).get('/members/neighbors/1')
+    test('should respond with status 200, and the requested member', async () => {
+      const res = await request(server).get('/members/4')
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)).toMatchObject({
-        id: 1,
+        id: 4,
         first_name: 'Eric',
         last_name: 'Grece',
         email: 'GreceMana@yahoo.com',
@@ -90,7 +90,7 @@ describe('/members', () => {
   describe(`PUT '/:id'`, () => {
     test('should respond with status 200, and the updated neighbor', async () => {
       const res = await request(server)
-        .put('/members/neighbors/1')
+        .put('/members/7')
         .send({
           first_name: 'Jane',
           last_name: 'Smith',
@@ -113,7 +113,7 @@ describe('/members', () => {
 
   describe(`DELETE '/:id'`, () => {
     test('should respond with status 200, and the requested neighbor', async () => {
-      const res = await request(server).delete('/members/neighbors/4')
+      const res = await request(server).delete('/members/7')
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
@@ -125,7 +125,7 @@ describe('/members', () => {
 
   describe(`custom error handling`, () => {
     test('should respond with status 500, a message, and the original thrown error', async () => {
-      const res = await request(server).get('/members/neighbors/a')
+      const res = await request(server).get('/members/a')
 
       expect(res.status).toBe(500)
 

@@ -7,7 +7,6 @@ module.exports = {
   find,
   update,
   remove,
-  addUser,
 }
 
 async function add(membertype, data) {
@@ -34,7 +33,7 @@ async function add(membertype, data) {
   if (!mt_id)
     mt_id = (await db('membertypes').insert({ type: membertype }, ['id']))[0]
 
-  return (
+  const member_id = (
     await db('members').insert(
       {
         first_name: data.first_name,
@@ -47,10 +46,14 @@ async function add(membertype, data) {
       ['id']
     )
   )[0]
-}
 
-async function addUser(id, { email, password }) {
-  await db('users').insert({ email, password, member_id: id })
+  await db('users').insert({
+    email: data.email,
+    password: data.password,
+    member_id: member_id.id,
+  })
+
+  return member_id
 }
 
 function find(filter) {
