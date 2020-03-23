@@ -1,28 +1,25 @@
 exports.up = function(knex) {
   return knex.schema.createTable('city_state_zip', tbl => {
-    tbl.increments('city_state_zip_id')
+    tbl.increments('id')
     tbl
       .integer('city_id')
       .notNullable()
       .unsigned()
-      .references('city_id')
-      .inTable('cities')
+      .references('cities.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
     tbl
       .integer('state_id')
       .notNullable()
       .unsigned()
-      .references('state_id')
-      .inTable('states')
+      .references('states.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
     tbl
       .integer('zip_id')
       .notNullable()
       .unsigned()
-      .references('zip_id')
-      .inTable('zips')
+      .references('zips.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
   })

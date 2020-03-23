@@ -1,5 +1,5 @@
 const db = require('../../data/db-config.js'),
-  { add, find, findBy, update, remove } = require('./member-helper')
+  { add, find, update, remove } = require('./member-helper')
 
 describe('member-helper', () => {
   describe('CREATE', () => {
@@ -17,13 +17,16 @@ describe('member-helper', () => {
         zip: '86555',
       })
 
-      const neighbor = await db('neighbors')
+      const neighbors = await db('members AS m')
+        .innerJoin('membertypes AS mt', 'm.membertype_id', 'mt.id')
+        .where('type', 'neighbors')
 
-      expect(neighbor[3]).toMatchObject({
+      expect(neighbors[3]).toMatchObject({
         first_name: 'John',
         last_name: 'Smith',
         phone: '503-555-8654',
         address: '1234 Main Street, APT 5',
+        membertype_id: 2,
         city_state_zip_id: 4,
       })
 
@@ -38,18 +41,18 @@ describe('member-helper', () => {
 
     describe('find', () => {
       test('returns array of 6 neighbors and families', async () => {
-        const neighbors = await find()
+        const members = await find()
 
-        expect(neighbors.length).toBe(6)
+        expect(members.length).toBe(6)
       })
     })
 
-    describe('findBy', () => {
+    describe('find with filter', () => {
       test('should be passed a filter and return results that match', async () => {
-        const found = await findBy('neighbors', ['phone', '102-808-3242'])
+        const found = await find({ phone: '102-808-3242' })
 
         expect(found[0]).toMatchObject({
-          id: 2,
+          id: 5,
           first_name: 'Tommy',
           last_name: 'Richmon',
           phone: '102-808-3242',
@@ -57,6 +60,7 @@ describe('member-helper', () => {
           city: 'Colorado Springs',
           state: 'Colorado',
           zip: '80014',
+          type: 'neighbors',
         })
       })
     })
@@ -64,13 +68,13 @@ describe('member-helper', () => {
 
   describe('UPDATE', () => {
     test('update should change an existing record in the neighbors database', async () => {
-      await update('neighbors', 2, {
+      await update(5, {
         first_name: 'Johnny',
         last_name: 'Testing',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
       })
-      const updated = (await findBy('neighbors', ['id', 2]))[0]
+      const updated = (await find({ 'm.id': 5 }))[0]
 
       expect(updated).toMatchObject({
         first_name: 'Johnny',
@@ -85,7 +89,7 @@ describe('member-helper', () => {
   })
   describe('DELETE', () => {
     test('remove should delete a record from the table by id ', async () => {
-      const toBeDeleted = (await findBy('neighbors', ['id', 2]))[0]
+      const toBeDeleted = (await find({ 'm.id': 5 }))[0]
 
       expect(toBeDeleted).toMatchObject({
         first_name: 'Johnny',
@@ -97,9 +101,9 @@ describe('member-helper', () => {
         zip: '80014',
       })
 
-      await remove('neighbors', 2)
+      await remove(5)
 
-      const deleted = (await findBy('neighbors', ['id', 2]))[0]
+      const deleted = (await find({ 'm.id': 5 }))[0]
 
       expect(deleted).toBe(undefined)
     })

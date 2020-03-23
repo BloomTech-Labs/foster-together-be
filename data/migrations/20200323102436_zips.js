@@ -1,8 +1,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('zips', tbl => {
-    tbl.increments('zip_id')
+    tbl.increments('id')
     tbl
-      .integer('zip')
+      .text('zip')
       .unique()
       .notNullable()
       .index()
