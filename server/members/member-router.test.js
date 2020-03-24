@@ -3,7 +3,21 @@ const server = require('../server'),
   db = require('../../data/db-config')
 
 describe('/members', () => {
-  beforeAll(() => db.seed.run())
+  let token
+
+  beforeAll(async done => {
+    await db.seed.run()
+    request(server)
+      .post('/login')
+      .send({
+        email: 'hope@email.com',
+        password: 'hope',
+      })
+      .end((err, response) => {
+        token = response.body.token // save the token!
+        done()
+      })
+  })
 
   describe(`POST '/'`, () => {
     test('should respond with a status 201 and a json message for success', async () => {
