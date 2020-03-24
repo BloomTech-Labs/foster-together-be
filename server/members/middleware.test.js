@@ -1,6 +1,6 @@
-const { validateSignup } = require('./middleware.js')
+const { validateMemberBody } = require('./middleware.js')
 
-describe('validate signup', () => {
+describe('validate memberbody', () => {
   let req = {}
   let res = {}
 
@@ -19,9 +19,12 @@ describe('validate signup', () => {
         zip: '06513',
         password: '',
         confirmPassword: '',
+        longitude: -54.5515,
+        latitude: 123.8454,
       },
+      method: 'POST',
     }
-    validateSignup(req, res, next)
+    validateMemberBody(req, res, next)
     expect(next).toBeCalled()
   })
 })

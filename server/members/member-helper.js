@@ -5,17 +5,14 @@ const Locations = require('./location-helper.js')
 module.exports = {
   add,
   find,
-  findMembertype,
-  findBy,
   update,
   remove,
-  addUser,
 }
 
-async function add(membertype, data) {
+async function handleCSZ(data) {
   let city = await Locations.findCityByName(data.city)
   let state = await Locations.findStateByName(data.state)
-  let zip = await Locations.findByZip(Number(data.zip))
+  let zip = await Locations.findByZip(data.zip)
 
   if (!city) city = (await Locations.addCity({ city: data.city }))[0]
 
@@ -29,85 +26,93 @@ async function add(membertype, data) {
     cityStateZip = (
       await Locations.addCityStateZip(city.id, state.id, zip.id)
     )[0]
+  return cityStateZip
+}
 
-  return (
-    await db(membertype).insert(
+async function handleMT(membertype) {
+  let mt_id = await db('membertypes')
+    .where('type', membertype)
+    .first(['id'])
+  if (!mt_id)
+    mt_id = (await db('membertypes').insert({ type: membertype }, ['id']))[0]
+  return mt_id
+}
+
+async function add(membertype, data) {
+  const cityStateZip = await handleCSZ(data)
+
+  const mt_id = await handleMT(membertype)
+
+  const member_id = (
+    await db('members').insert(
       {
         first_name: data.first_name,
         last_name: data.last_name,
         phone: data.phone,
         address: data.address,
         city_state_zip_id: cityStateZip.id,
+        membertype_id: mt_id.id,
+        longitude: data.longitude,
+        latitude: data.latitude,
       },
       ['id']
     )
   )[0]
+
+  await db('users').insert({
+    email: data.email,
+    password: data.password,
+    member_id: member_id.id,
+  })
+
+  return member_id
 }
 
-async function addUser(membertype, id, { email, password }) {
-  membertype === 'families'
-    ? await db('users').insert({ email, password, family_id: id })
-    : await db('users').insert({ email, password, neighbor_id: id })
-}
-
-async function find() {
-  const allMembers = [
-    ...(await findMembertype('families')),
-    ...(await findMembertype('neighbors')),
-  ]
-  return allMembers
-}
-
-async function findMembertype(membertype) {
-  const memberArray = (await findBy(membertype)).map(member => ({
-    ...member,
-    type: membertype,
-  }))
-  return memberArray
-}
-
-function findBy(membertype, filter) {
-  const membertypeID = membertype === 'families' ? 'family_id' : 'neighbor_id'
-  return db('users as u')
-    .join(`${membertype}`, `u.${membertypeID}`, `${membertype}.id`)
-    .join('city_state_zip as csz', 'csz.id', `${membertype}.city_state_zip_id`)
-    .join('cities as c', 'c.id', 'csz.city_id')
-    .join('states as s', 's.id', 'csz.state_id')
-    .join('zips as z', 'z.id', 'csz.zip_id')
+function find(filter) {
+  return db('users AS u')
+    .join('members AS m', 'u.member_id', 'm.id')
+    .join('membertypes AS mt', 'm.membertype_id', 'mt.id')
+    .join('city_state_zip AS csz', 'csz.id', `m.city_state_zip_id`)
+    .join('cities AS c', 'c.id', 'csz.city_id')
+    .join('states AS s', 's.id', 'csz.state_id')
+    .join('zips AS z', 'z.id', 'csz.zip_id')
     .select(
-      `${membertype}.id`,
-      `${membertype}.first_name`,
-      `${membertype}.last_name`,
-      `u.email`,
-      `${membertype}.phone`,
-      `${membertype}.address`,
+      'm.id',
+      'first_name',
+      'last_name',
+      'email',
+      'phone',
+      'address',
       'c.city',
       's.state',
-      'z.zip'
+      'z.zip',
+      'longitude',
+      'latitude',
+      'type'
     )
     .modify(function(queryBuilder) {
-      if (filter) {
-        queryBuilder.where(`${membertype}.${filter[0]}`, filter[1])
-      }
+      if (filter) queryBuilder.where(filter)
     })
 }
 
-function update(membertype, id, data) {
-  return db(membertype)
+async function update(id, data) {
+  const cityStateZip = await handleCSZ(data)
+  await db('members')
     .where('id', id)
-    .update(
-      {
-        first_name: data.first_name,
-        last_name: data.last_name,
-        phone: data.phone,
-        address: data.address,
-      },
-      ['first_name', 'last_name', 'phone', 'address']
-    )
+    .update({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      phone: data.phone,
+      address: data.address,
+      city_state_zip_id: cityStateZip.id,
+      longitude: data.longitude,
+      latitude: data.latitude,
+    })
+  return find({ 'm.id': id })
 }
 
-function remove(membertype, id) {
-  return db(membertype)
+function remove(id) {
+  return db('members')
     .where('id', id)
     .del()
 }

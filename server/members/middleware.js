@@ -1,7 +1,5 @@
-const validateSignup = (req, res, next) => {
-  const body = req.body
-  const keyArray = Object.keys(body)
-  const expectedKeys = [
+const expectedKeys = {
+  POST: [
     'first_name',
     'last_name',
     'email',
@@ -10,12 +8,30 @@ const validateSignup = (req, res, next) => {
     'city',
     'state',
     'zip',
+    'longitude',
+    'latitude',
     'password',
     'confirmPassword',
-  ]
+  ],
+  PUT: [
+    'first_name',
+    'last_name',
+    'phone',
+    'address',
+    'city',
+    'state',
+    'zip',
+    'longitude',
+    'latitude',
+  ],
+}
+
+const validateMemberBody = (req, res, next) => {
+  const body = req.body
+  const keyArray = Object.keys(body)
   const difference = keyArray
-    .filter(x => !expectedKeys.includes(x))
-    .concat(expectedKeys.filter(x => !keyArray.includes(x)))
+    .filter(x => !expectedKeys[req.method].includes(x))
+    .concat(expectedKeys[req.method].filter(x => !keyArray.includes(x)))
   if (keyArray.length === 0) res.status(400).json({ message: 'Missing data.' })
   if (difference.length > 0)
     return res
@@ -26,4 +42,12 @@ const validateSignup = (req, res, next) => {
   next()
 }
 
-module.exports = { validateSignup }
+// checks if token belongs to specific user or an admin
+const userOrAdmin = (req, res, next) => {
+  const { id } = req.params
+  if (req.decodedToken.type === 'admins' || req.decodedToken.id === Number(id))
+    next()
+  else res.status(401).json({ message: 'Authentication Failure', token: false })
+}
+
+module.exports = { validateMemberBody, userOrAdmin }

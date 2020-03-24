@@ -4,15 +4,19 @@ const router = require('express-promise-router')(),
   {
     errorHandling,
     hashPassword,
-    generateToken,
+    authenticate,
   } = require('../middlewareAndTools')
 
 module.exports = router
 
-router.post('/', valBody, hashPassword, async (req, res) => {
-  const { id, first_name } = await addAdmin(req.body)
-  const token = generateToken({ id, membertype: 'admins' })
-  res.status(201).json({ first_name, token })
+router.post('/', authenticate, valBody, hashPassword, async (req, res) => {
+  if (req.decodedToken.type === 'admins')
+    res.status(201).json({
+      message: `${
+        (await addAdmin(req.body))['first_name']
+      } added successfully!`,
+    })
+  else res.status(401).json({ message: 'Authentication Failure', token: false })
 })
 
 router.use(errorHandling)

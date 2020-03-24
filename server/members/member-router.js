@@ -4,47 +4,55 @@ const router = require('express-promise-router')(),
     validateId,
     hashPassword,
     generateToken,
+    authenticate,
   } = require('../middlewareAndTools'),
-  { validateSignup } = require('./middleware'),
+  { validateMemberBody, userOrAdmin } = require('./middleware'),
   Members = require('./member-helper.js')
 
-router.post('/:membertype', validateSignup, hashPassword, async (req, res) => {
-  const { membertype } = req.params
-  const { id } = await Members.add(membertype, req.body)
-  await Members.addUser(membertype, id, req.body)
-  const token = generateToken({ id, membertype })
-  const saved = await Members.findBy(membertype, ['id', id])
-  res.status(201).json({ message: 'Member successfully added.', saved, token })
-})
+router.post(
+  '/:membertype',
+  validateMemberBody,
+  hashPassword,
+  async (req, res) => {
+    const { membertype } = req.params
+    const { id } = await Members.add(membertype, req.body)
+    const token = generateToken({ id, membertype })
+    const saved = await Members.find({ 'm.id': id })
+    res
+      .status(201)
+      .json({ message: 'Member successfully added.', saved, token })
+  }
+)
 
-router.get('/', async (req, res) => {
-  const allMembers = await Members.find()
-  res.status(200).json(allMembers)
-})
+router.get('/', authenticate, async (req, res) =>
+  req.decodedToken.type === 'admins'
+    ? res.json(await Members.find(req.query))
+    : res.status(401).json({ message: 'Authentication Failure', token: false })
+)
 
-router.get('/:membertype', async (req, res) => {
-  const { membertype } = req.params
-  const allMemberType = await Members.findMembertype(membertype)
-  res.status(200).json(allMemberType)
-})
+router.get('/:id', validateId, authenticate, userOrAdmin, async (req, res) =>
+  res.json((await Members.find({ 'm.id': req.params.id }))[0])
+)
 
-router.get('/:membertype/:id', validateId, async (req, res) => {
-  const { membertype, id } = req.params
-  const member = (await Members.findBy(membertype, ['id', id]))[0]
-  res.status(200).json(member)
-})
+router.put(
+  '/:id',
+  validateMemberBody,
+  validateId,
+  authenticate,
+  userOrAdmin,
+  async (req, res) => res.json(await Members.update(req.params.id, req.body))
+)
 
-router.put('/:membertype/:id', validateId, async (req, res) => {
-  const { membertype, id } = req.params
-  const updated = await Members.update(membertype, id, req.body)
-  res.status(200).json(updated)
-})
-
-router.delete('/:membertype/:id', validateId, async (req, res) => {
-  const { membertype, id } = req.params
-  await Members.remove(membertype, id)
-  res.status(200).json({ message: 'Member successfully deleted.' })
-})
+router.delete(
+  '/:id',
+  validateId,
+  authenticate,
+  userOrAdmin,
+  async (req, res) => {
+    await Members.remove(req.params.id)
+    res.json({ message: 'Member successfully deleted.' })
+  }
+)
 
 router.use(errorHandling)
 

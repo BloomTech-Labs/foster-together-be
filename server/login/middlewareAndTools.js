@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs'),
-  db = require('../../data/db-config')
+  db = require('../../data/db-config'),
+  { find } = require('../members/member-helper')
 
 const valBody = (req, res, next) => {
   if (!req.body.email && !req.body.password)
@@ -13,25 +14,21 @@ const validatePassword = async (req, res, next) => {
   const user = await db('users')
     .where('email', req.body.email)
     .first()
+  const userData = user.admin_id
+    ? await db('admins')
+        .where('id', user.admin_id)
+        .first()
+    : await find({ 'm.id': user.member_id }).first()
   if (!user || !bcrypt.compareSync(req.body.password, user.password))
     return res
       .status(401)
       .json({ message: 'Authorization failed!', token: false })
   req.body.user = {
     subject: user.id,
-    id: user.admin_id || user.family_id || user.neighbor_id,
-    membertype: user.admin_id
-      ? 'admins'
-      : user.family_id
-      ? 'families'
-      : 'neighbors',
+    type: user.admin_id && 'admins',
+    ...userData,
   }
   next()
 }
 
-const getUserDetails = async (id, membertype) =>
-  await db(membertype)
-    .where('id', id)
-    .first()
-
-module.exports = { valBody, validatePassword, getUserDetails }
+module.exports = { valBody, validatePassword }
