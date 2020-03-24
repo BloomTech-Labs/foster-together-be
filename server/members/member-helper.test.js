@@ -74,6 +74,9 @@ describe('member-helper', () => {
         last_name: 'Testing',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
+        city: 'Salt Lake City',
+        state: 'Utah',
+        zip: '84044',
       })
       const updated = (await find({ 'm.id': 5 }))[0]
 
@@ -82,9 +85,9 @@ describe('member-helper', () => {
         last_name: 'Testing',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city: 'Colorado Springs',
-        state: 'Colorado',
-        zip: '80014',
+        city: 'Salt Lake City',
+        state: 'Utah',
+        zip: '84044',
       })
     })
   })
@@ -97,9 +100,9 @@ describe('member-helper', () => {
         last_name: 'Testing',
         phone: '102-808-3242',
         address: '123 Testing Avenue',
-        city: 'Colorado Springs',
-        state: 'Colorado',
-        zip: '80014',
+        city: 'Salt Lake City',
+        state: 'Utah',
+        zip: '84044',
       })
 
       await remove(5)

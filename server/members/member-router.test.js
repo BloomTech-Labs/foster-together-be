@@ -83,6 +83,7 @@ describe('/members', () => {
         city: 'Boulder',
         state: 'Colorado',
         zip: '80301',
+        type: 'neighbors',
       })
     })
   })
@@ -96,6 +97,9 @@ describe('/members', () => {
           last_name: 'Smith',
           phone: '503-555-8655',
           address: '1234 Main Street, APT 7',
+          city: 'Portland',
+          state: 'OR',
+          zip: '97232',
         })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
@@ -103,10 +107,16 @@ describe('/members', () => {
       expect(res.status).toBe(200)
 
       expect(JSON.parse(res.text)[0]).toMatchObject({
+        id: 7,
         first_name: 'Jane',
         last_name: 'Smith',
         phone: '503-555-8655',
         address: '1234 Main Street, APT 7',
+        email: 'john.smith@email.com',
+        type: 'neighbors',
+        city: 'Portland',
+        state: 'OR',
+        zip: '97232',
       })
     })
   })

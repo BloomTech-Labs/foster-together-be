@@ -5,16 +5,23 @@ const router = require('express-promise-router')(),
     hashPassword,
     generateToken,
   } = require('../middlewareAndTools'),
-  { validateSignup } = require('./middleware'),
+  { validateMemberBody } = require('./middleware'),
   Members = require('./member-helper.js')
 
-router.post('/:membertype', validateSignup, hashPassword, async (req, res) => {
-  const { membertype } = req.params
-  const { id } = await Members.add(membertype, req.body)
-  const token = generateToken({ id, membertype })
-  const saved = await Members.find({ 'm.id': id })
-  res.status(201).json({ message: 'Member successfully added.', saved, token })
-})
+router.post(
+  '/:membertype',
+  validateMemberBody,
+  hashPassword,
+  async (req, res) => {
+    const { membertype } = req.params
+    const { id } = await Members.add(membertype, req.body)
+    const token = generateToken({ id, membertype })
+    const saved = await Members.find({ 'm.id': id })
+    res
+      .status(201)
+      .json({ message: 'Member successfully added.', saved, token })
+  }
+)
 
 router.get('/', async (req, res) => {
   const members = await Members.find(req.query)
@@ -27,7 +34,7 @@ router.get('/:id', validateId, async (req, res) => {
   res.json(member)
 })
 
-router.put('/:id', validateId, async (req, res) => {
+router.put('/:id', validateMemberBody, validateId, async (req, res) => {
   const { id } = req.params
   const updated = await Members.update(id, req.body)
   res.json(updated)

@@ -9,10 +9,10 @@ module.exports = {
   remove,
 }
 
-async function add(membertype, data) {
+async function handleCSZ(data) {
   let city = await Locations.findCityByName(data.city)
   let state = await Locations.findStateByName(data.state)
-  let zip = await Locations.findByZip(Number(data.zip))
+  let zip = await Locations.findByZip(data.zip)
 
   if (!city) city = (await Locations.addCity({ city: data.city }))[0]
 
@@ -26,6 +26,11 @@ async function add(membertype, data) {
     cityStateZip = (
       await Locations.addCityStateZip(city.id, state.id, zip.id)
     )[0]
+  return cityStateZip
+}
+
+async function add(membertype, data) {
+  const cityStateZip = await handleCSZ(data)
 
   let mt_id = await db('membertypes')
     .where('type', membertype)
@@ -83,18 +88,18 @@ function find(filter) {
     })
 }
 
-function update(id, data) {
-  return db('members')
+async function update(id, data) {
+  const cityStateZip = await handleCSZ(data)
+  await db('members')
     .where('id', id)
-    .update(
-      {
-        first_name: data.first_name,
-        last_name: data.last_name,
-        phone: data.phone,
-        address: data.address,
-      },
-      ['first_name', 'last_name', 'phone', 'address']
-    )
+    .update({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      phone: data.phone,
+      address: data.address,
+      city_state_zip_id: cityStateZip.id,
+    })
+  return find({ 'm.id': id })
 }
 
 function remove(id) {

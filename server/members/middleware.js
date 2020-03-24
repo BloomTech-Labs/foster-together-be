@@ -1,18 +1,21 @@
-const validateSignup = (req, res, next) => {
+const validateMemberBody = (req, res, next) => {
   const body = req.body
   const keyArray = Object.keys(body)
-  const expectedKeys = [
-    'first_name',
-    'last_name',
-    'email',
-    'phone',
-    'address',
-    'city',
-    'state',
-    'zip',
-    'password',
-    'confirmPassword',
-  ]
+  const expectedKeys =
+    req.method !== 'PUT'
+      ? [
+          'first_name',
+          'last_name',
+          'email',
+          'phone',
+          'address',
+          'city',
+          'state',
+          'zip',
+          'password',
+          'confirmPassword',
+        ]
+      : ['first_name', 'last_name', 'phone', 'address', 'city', 'state', 'zip']
   const difference = keyArray
     .filter(x => !expectedKeys.includes(x))
     .concat(expectedKeys.filter(x => !keyArray.includes(x)))
@@ -26,4 +29,4 @@ const validateSignup = (req, res, next) => {
   next()
 }
 
-module.exports = { validateSignup }
+module.exports = { validateMemberBody }
