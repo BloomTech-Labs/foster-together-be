@@ -5,11 +5,12 @@ const router = require('express-promise-router')(),
     errorHandling,
     hashPassword,
     generateToken,
+    authenticate,
   } = require('../middlewareAndTools')
 
 module.exports = router
 
-router.post('/', valBody, hashPassword, async (req, res) => {
+router.post('/', valBody, authenticate, hashPassword, async (req, res) => {
   const { id, first_name } = await addAdmin(req.body)
   const token = generateToken({ id, membertype: 'admins' })
   res.status(201).json({ first_name, token })

@@ -4,6 +4,7 @@ const router = require('express-promise-router')(),
     validateId,
     hashPassword,
     generateToken,
+    authenticate,
   } = require('../middlewareAndTools'),
   { validateMemberBody } = require('./middleware'),
   Members = require('./member-helper.js')
@@ -23,24 +24,30 @@ router.post(
   }
 )
 
-router.get('/', async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
   const members = await Members.find(req.query)
   res.json(members)
 })
 
-router.get('/:id', validateId, async (req, res) => {
+router.get('/:id', validateId, authenticate, async (req, res) => {
   const { id } = req.params
   const member = (await Members.find({ 'm.id': id }))[0]
   res.json(member)
 })
 
-router.put('/:id', validateMemberBody, validateId, async (req, res) => {
-  const { id } = req.params
-  const updated = await Members.update(id, req.body)
-  res.json(updated)
-})
+router.put(
+  '/:id',
+  validateMemberBody,
+  validateId,
+  authenticate,
+  async (req, res) => {
+    const { id } = req.params
+    const updated = await Members.update(id, req.body)
+    res.json(updated)
+  }
+)
 
-router.delete('/:id', validateId, async (req, res) => {
+router.delete('/:id', validateId, authenticate, async (req, res) => {
   const { id } = req.params
   await Members.remove(id)
   res.json({ message: 'Member successfully deleted.' })
