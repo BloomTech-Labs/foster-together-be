@@ -29,14 +29,19 @@ async function handleCSZ(data) {
   return cityStateZip
 }
 
-async function add(membertype, data) {
-  const cityStateZip = await handleCSZ(data)
-
+async function handleMT(membertype) {
   let mt_id = await db('membertypes')
     .where('type', membertype)
     .first(['id'])
   if (!mt_id)
     mt_id = (await db('membertypes').insert({ type: membertype }, ['id']))[0]
+  return mt_id
+}
+
+async function add(membertype, data) {
+  const cityStateZip = await handleCSZ(data)
+
+  const mt_id = await handleMT(membertype)
 
   const member_id = (
     await db('members').insert(
@@ -86,9 +91,7 @@ function find(filter) {
       'type'
     )
     .modify(function(queryBuilder) {
-      if (filter) {
-        queryBuilder.where(filter)
-      }
+      if (filter) queryBuilder.where(filter)
     })
 }
 
