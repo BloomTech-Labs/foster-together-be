@@ -19,7 +19,7 @@ const validateId = async (req, res, next) => {
 
 // Check if token is valid and attach decoded info
 const authenticate = (req, res, next) => {
-  const token = req.headers.Authorization
+  const token = req.headers.authorization
   if (!token)
     return res
       .status(401)
