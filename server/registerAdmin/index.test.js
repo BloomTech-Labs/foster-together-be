@@ -32,9 +32,7 @@ describe('/register', () => {
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
-      expect(JSON.parse(res.text).first_name).toBe('test')
-
-      expect(JSON.parse(res.text).token).toBeTruthy()
+      expect(JSON.parse(res.text).message).toBe('test added successfully!')
 
       expect(res.status).toBe(201)
     })

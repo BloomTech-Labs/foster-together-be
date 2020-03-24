@@ -24,16 +24,15 @@ router.post(
   }
 )
 
-router.get('/', authenticate, async (req, res) => {
-  const members = await Members.find(req.query)
-  res.json(members)
-})
+router.get('/', authenticate, async (req, res) =>
+  req.decodedToken.type === 'admins'
+    ? res.json(await Members.find(req.query))
+    : res.status(401).json({ message: 'Authentication Failure', token: false })
+)
 
-router.get('/:id', validateId, authenticate, userOrAdmin, async (req, res) => {
-  const { id } = req.params
-  const member = (await Members.find({ 'm.id': id }))[0]
-  res.json(member)
-})
+router.get('/:id', validateId, authenticate, userOrAdmin, async (req, res) =>
+  res.json((await Members.find({ 'm.id': req.params.id }))[0])
+)
 
 router.put(
   '/:id',
@@ -41,11 +40,7 @@ router.put(
   validateId,
   authenticate,
   userOrAdmin,
-  async (req, res) => {
-    const { id } = req.params
-    const updated = await Members.update(id, req.body)
-    res.json(updated)
-  }
+  async (req, res) => res.json(await Members.update(req.params.id, req.body))
 )
 
 router.delete(
@@ -54,8 +49,7 @@ router.delete(
   authenticate,
   userOrAdmin,
   async (req, res) => {
-    const { id } = req.params
-    await Members.remove(id)
+    await Members.remove(req.params.id)
     res.json({ message: 'Member successfully deleted.' })
   }
 )

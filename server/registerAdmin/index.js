@@ -10,7 +10,7 @@ const router = require('express-promise-router')(),
 module.exports = router
 
 router.post('/', authenticate, valBody, hashPassword, async (req, res) => {
-  if (req.decodedToken.membertype === 'admins')
+  if (req.decodedToken.type === 'admins')
     res.status(201).json({
       message: `${
         (await addAdmin(req.body))['first_name']
