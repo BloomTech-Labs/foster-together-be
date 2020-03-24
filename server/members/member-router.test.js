@@ -23,6 +23,7 @@ describe('/members', () => {
     test('should respond with a status 201 and a json message for success', async () => {
       const res = await request(server)
         .post('/members/neighbors')
+        .set('authorization', token)
         .send({
           first_name: 'John',
           last_name: 'Smith',
@@ -57,7 +58,9 @@ describe('/members', () => {
 
   describe(`GET '/'`, () => {
     test('should respond with status 200, and an array of neighbors', async () => {
-      const res = await request(server).get('/members/?type=neighbors')
+      const res = await request(server)
+        .get('/members/?type=neighbors')
+        .set('authorization', token)
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
@@ -81,7 +84,9 @@ describe('/members', () => {
 
   describe(`GET '/:id'`, () => {
     test('should respond with status 200, and the requested member', async () => {
-      const res = await request(server).get('/members/4')
+      const res = await request(server)
+        .get('/members/4')
+        .set('authorization', token)
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
@@ -106,6 +111,7 @@ describe('/members', () => {
     test('should respond with status 200, and the updated neighbor', async () => {
       const res = await request(server)
         .put('/members/7')
+        .set('authorization', token)
         .send({
           first_name: 'Jane',
           last_name: 'Smith',
@@ -137,7 +143,9 @@ describe('/members', () => {
 
   describe(`DELETE '/:id'`, () => {
     test('should respond with status 200, and the requested neighbor', async () => {
-      const res = await request(server).delete('/members/7')
+      const res = await request(server)
+        .delete('/members/7')
+        .set('authorization', token)
 
       expect(JSON.parse(res.text).error).toBe(undefined)
 
@@ -149,7 +157,9 @@ describe('/members', () => {
 
   describe(`custom error handling`, () => {
     test('should respond with status 500, a message, and the original thrown error', async () => {
-      const res = await request(server).get('/members/a')
+      const res = await request(server)
+        .get('/members/a')
+        .set('authorization', token)
 
       expect(res.status).toBe(500)
 
