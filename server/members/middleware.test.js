@@ -19,6 +19,8 @@ describe('validate memberbody', () => {
         zip: '06513',
         password: '',
         confirmPassword: '',
+        longitude: -54.5515,
+        latitude: 123.8454,
       },
       method: 'POST',
     }

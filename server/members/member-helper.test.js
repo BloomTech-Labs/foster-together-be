@@ -16,6 +16,8 @@ describe('member-helper', () => {
         city: 'Albuquerque',
         state: 'NM',
         zip: '86555',
+        longitude: -54.5515,
+        latitude: 123.8454,
       })
 
       const neighbors = await db('members AS m')
@@ -29,6 +31,8 @@ describe('member-helper', () => {
         address: '1234 Main Street, APT 5',
         membertype_id: 2,
         city_state_zip_id: 4,
+        longitude: '-54.5515',
+        latitude: '123.8454',
       })
 
       const city_state_zip = await db('city_state_zip')
@@ -62,6 +66,8 @@ describe('member-helper', () => {
           state: 'Colorado',
           zip: '80014',
           type: 'neighbors',
+          longitude: '10.61944',
+          latitude: '-91.47337',
         })
       })
     })
@@ -77,6 +83,8 @@ describe('member-helper', () => {
         city: 'Salt Lake City',
         state: 'Utah',
         zip: '84044',
+        longitude: '10.61944',
+        latitude: '-91.47337',
       })
       const updated = (await find({ 'm.id': 5 }))[0]
 
@@ -88,6 +96,8 @@ describe('member-helper', () => {
         city: 'Salt Lake City',
         state: 'Utah',
         zip: '84044',
+        longitude: '10.61944',
+        latitude: '-91.47337',
       })
     })
   })
@@ -103,6 +113,8 @@ describe('member-helper', () => {
         city: 'Salt Lake City',
         state: 'Utah',
         zip: '84044',
+        longitude: '10.61944',
+        latitude: '-91.47337',
       })
 
       await remove(5)

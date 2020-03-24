@@ -8,16 +8,27 @@ const expectedKeys = {
     'city',
     'state',
     'zip',
+    'longitude',
+    'latitude',
     'password',
     'confirmPassword',
   ],
-  PUT: ['first_name', 'last_name', 'phone', 'address', 'city', 'state', 'zip'],
+  PUT: [
+    'first_name',
+    'last_name',
+    'phone',
+    'address',
+    'city',
+    'state',
+    'zip',
+    'longitude',
+    'latitude',
+  ],
 }
 
 const validateMemberBody = (req, res, next) => {
   const body = req.body
   const keyArray = Object.keys(body)
-  console.log(req.method)
   const difference = keyArray
     .filter(x => !expectedKeys[req.method].includes(x))
     .concat(expectedKeys[req.method].filter(x => !keyArray.includes(x)))

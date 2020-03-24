@@ -47,6 +47,8 @@ async function add(membertype, data) {
         address: data.address,
         city_state_zip_id: cityStateZip.id,
         membertype_id: mt_id.id,
+        longitude: data.longitude,
+        latitude: data.latitude,
       },
       ['id']
     )
@@ -79,6 +81,8 @@ function find(filter) {
       'c.city',
       's.state',
       'z.zip',
+      'longitude',
+      'latitude',
       'type'
     )
     .modify(function(queryBuilder) {
@@ -98,6 +102,8 @@ async function update(id, data) {
       phone: data.phone,
       address: data.address,
       city_state_zip_id: cityStateZip.id,
+      longitude: data.longitude,
+      latitude: data.latitude,
     })
   return find({ 'm.id': id })
 }

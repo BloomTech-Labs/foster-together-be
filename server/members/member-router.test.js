@@ -35,6 +35,8 @@ describe('/members', () => {
           zip: '06512',
           password: '',
           confirmPassword: '',
+          longitude: 10.61944,
+          latitude: -91.47337,
         })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
@@ -52,6 +54,8 @@ describe('/members', () => {
         city: 'New Haven',
         state: 'Connecticut',
         zip: '06512',
+        latitude: '-91.47337',
+        longitude: '10.61944',
       })
     })
   })
@@ -78,6 +82,8 @@ describe('/members', () => {
         city: 'Boulder',
         state: 'Colorado',
         zip: '80301',
+        longitude: '10.61944',
+        latitude: '-91.47337',
       })
     })
   })
@@ -103,6 +109,8 @@ describe('/members', () => {
         state: 'Colorado',
         zip: '80301',
         type: 'neighbors',
+        longitude: '10.61944',
+        latitude: '-91.47337',
       })
     })
   })
@@ -120,6 +128,8 @@ describe('/members', () => {
           city: 'Portland',
           state: 'OR',
           zip: '97232',
+          longitude: -54.5515,
+          latitude: 123.8454,
         })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
@@ -137,6 +147,8 @@ describe('/members', () => {
         city: 'Portland',
         state: 'OR',
         zip: '97232',
+        longitude: '-54.5515',
+        latitude: '123.8454',
       })
     })
   })

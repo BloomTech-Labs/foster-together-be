@@ -18,6 +18,8 @@ exports.up = function(knex) {
       .references('city_state_zip.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
+    tbl.text('latitude').notNullable()
+    tbl.text('longitude').notNullable()
     tbl
       .integer('membertype_id')
       .notNullable()

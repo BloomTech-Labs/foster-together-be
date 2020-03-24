@@ -9,6 +9,8 @@ exports.seed = function(knex) {
         phone: '200-800-7648',
         address: '1245 Wynnstone Dr',
         city_state_zip_id: 1,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 1,
       },
       {
@@ -17,6 +19,8 @@ exports.seed = function(knex) {
         phone: '200-555-7648',
         address: '32 Cherry Ave',
         city_state_zip_id: 2,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 1,
       },
       {
@@ -25,6 +29,8 @@ exports.seed = function(knex) {
         phone: '200-555-5000',
         address: '648 Cat St',
         city_state_zip_id: 3,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 1,
       },
       {
@@ -33,6 +39,8 @@ exports.seed = function(knex) {
         phone: '202-808-6542',
         address: '629 W Cienga Boul',
         city_state_zip_id: 1,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 2,
       },
       {
@@ -41,6 +49,8 @@ exports.seed = function(knex) {
         phone: '102-808-3242',
         address: 'Orange County',
         city_state_zip_id: 2,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 2,
       },
       {
@@ -49,6 +59,8 @@ exports.seed = function(knex) {
         phone: '202-324-4324',
         address: 'Flagstaff',
         city_state_zip_id: 3,
+        longitude: '10.61944',
+        latitude: '-91.47337',
         membertype_id: 2,
       },
     ])
