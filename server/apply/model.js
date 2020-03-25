@@ -1,6 +1,6 @@
 const db = require('../../data/db-config.js')
 
-const addApp = async values => {
+const addApp = async (member_id, values) => {
   let app_q2 = await db('app_q2')
     .where(values.app_q2)
     .first()
@@ -21,7 +21,6 @@ const addApp = async values => {
   const app_approved = await db('app_approved')
     .where({ approved: false })
     .first()
-
   return (
     await db('application').insert(
       {
@@ -34,7 +33,7 @@ const addApp = async values => {
         app_q7: values.app_q7,
         app_q8: values.app_q8,
         app_approved_id: app_approved.id,
-        member_id: values.member_id,
+        member_id,
       },
       ['id']
     )
