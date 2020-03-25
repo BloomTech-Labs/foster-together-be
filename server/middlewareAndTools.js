@@ -51,6 +51,14 @@ const hashPassword = (req, res, next) => {
   next()
 }
 
+// checks if token belongs to specific user or an admin
+const userOrAdmin = (req, res, next) => {
+  const { id } = req.params
+  if (req.decodedToken.type === 'admins' || req.decodedToken.id === Number(id))
+    next()
+  else res.status(401).json({ message: 'Authentication Failure', token: false })
+}
+
 // Custom error handler
 const errorHandling = (err, req, res, next) =>
   res.status(500).json({
@@ -64,4 +72,5 @@ module.exports = {
   validateId,
   generateToken,
   hashPassword,
+  userOrAdmin,
 }

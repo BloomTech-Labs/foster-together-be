@@ -42,12 +42,4 @@ const validateMemberBody = (req, res, next) => {
   next()
 }
 
-// checks if token belongs to specific user or an admin
-const userOrAdmin = (req, res, next) => {
-  const { id } = req.params
-  if (req.decodedToken.type === 'admins' || req.decodedToken.id === Number(id))
-    next()
-  else res.status(401).json({ message: 'Authentication Failure', token: false })
-}
-
-module.exports = { validateMemberBody, userOrAdmin }
+module.exports = { validateMemberBody }

@@ -1,4 +1,4 @@
-const { addApp } = require('./model'),
+const { addApp, findApp } = require('./model'),
   db = require('../../data/db-config.js')
 
 describe('db functions for application', () => {
@@ -56,5 +56,34 @@ describe('db functions for application', () => {
       },
     })
     expect(second.id).toBe(2)
+  })
+  test('should find an application', async () => {
+    const application = await findApp({ member_id: 4 })
+    expect(application).toMatchObject({
+      app_q1_a: {
+        option_1: true,
+        option_2: false,
+        option_3: true,
+        option_4: false,
+      },
+      app_q1_b: 'app_q1_b test 1',
+      app_q2: {
+        option_1: false,
+        option_2: true,
+        option_3: false,
+        option_4: true,
+        option_5: false,
+      },
+      app_q3: { answer: true },
+      app_q4: { answer: 2 },
+      app_q5: 'app_q5 test 1',
+      app_q6_a: { answer: false },
+      app_q6_b: {
+        answer_a: 'answer_a',
+        answer_b: 'answer_b',
+        answer_c: 'answer_c',
+      },
+      app_status: 'Not yet reviewed',
+    })
   })
 })
