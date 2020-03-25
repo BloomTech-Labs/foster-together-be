@@ -1,13 +1,13 @@
 exports.up = function(knex) {
-  return knex.schema.createTable('app_q5', tbl => {
+  return knex.schema.createTable('app_q6_a', tbl => {
     tbl.increments('id')
     tbl
-      .integer('answer')
+      .boolean('answer')
       .notNullable()
       .unique()
   })
 }
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('app_q5')
+  return knex.schema.dropTableIfExists('app_q6_a')
 }
