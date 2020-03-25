@@ -8,7 +8,7 @@ const server = require('express')(),
   registerRouter = require('./registerAdmin'),
   membersRouter = require('./members/member-router'),
   backgroundRouter = require('./background'),
-  applyRouter = require('./apply')
+  applicationRouter = require('./apply')
 
 server.use(json, morgan, helmet, cors)
 
@@ -17,7 +17,7 @@ server.use('/logout', logoutRouter)
 server.use('/register', registerRouter)
 server.use('/members', membersRouter)
 server.use('/background', backgroundRouter)
-server.use('/apply', applyRouter)
+server.use('/application', applicationRouter)
 
 server.get('/', (req, res) => {
   res.status(200).json({ Server: 'Running' })
