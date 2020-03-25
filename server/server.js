@@ -8,7 +8,7 @@ const server = require('express')(),
   registerRouter = require('./registerAdmin'),
   membersRouter = require('./members/member-router'),
   backgroundRouter = require('./background'),
-  applicationRouter = require('./apply')
+  applicationRouter = require('./application')
 
 server.use(json, morgan, helmet, cors)
 

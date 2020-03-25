@@ -1,7 +1,13 @@
 exports.up = function(knex) {
   return knex.schema.createTable('application', tbl => {
     tbl.increments('id')
-    tbl.text('app_q1')
+    tbl
+      .integer('app_q1_a_id')
+      .unsigned()
+      .references('app_q1_a.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
+    tbl.text('app_q1_b')
     tbl
       .integer('app_q2_id')
       .unsigned()
@@ -20,15 +26,19 @@ exports.up = function(knex) {
       .references('app_q4.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
+    tbl.text('app_q5')
     tbl
-      .integer('app_q5_id')
+      .integer('app_q6_a_id')
       .unsigned()
-      .references('app_q5.id')
+      .references('app_q6_a.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-    tbl.text('app_q6')
-    tbl.text('app_q7')
-    tbl.text('app_q8')
+    tbl
+      .integer('app_q6_b_id')
+      .unsigned()
+      .references('app_q6_b.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
     tbl
       .integer('app_approved_id')
       .unsigned()
