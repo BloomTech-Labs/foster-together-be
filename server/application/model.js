@@ -39,4 +39,34 @@ const addApp = async (member_id, values) => {
   )[0]
 }
 
-module.exports = { addApp }
+const findA = async (app_q, a_id) =>
+  await db(app_q)
+    .where('id', a_id)
+    .first()
+
+const status = aa_id => {
+  if (aa_id === 1) return 'Not yet reviewed'
+  if (aa_id === 2) return 'Approved'
+  if (aa_id === 3) return 'Denied'
+  if (aa_id === 4) return 'Out of Area'
+}
+const findApp = async member_id => {
+  const app = await db('application')
+    .where(member_id)
+    .first()
+
+  const approval = status(app.app_approved_id)
+
+  return {
+    app_q1_a: await findA('app_q1_a', app.app_q1_a_id),
+    app_q1_b: app.app_q1_b,
+    app_q2: await findA('app_q2', app.app_q2_id),
+    app_q3: await findA('app_q3', app.app_q3_id),
+    app_q4: await findA('app_q4', app.app_q4_id),
+    app_q5: app.app_q5,
+    app_q6_a: await findA('app_q6_a', app.app_q6_a_id),
+    app_q6_b: await findA('app_q6_b', app.app_q6_b_id),
+    app_status: approval,
+  }
+}
+module.exports = { addApp, findApp }

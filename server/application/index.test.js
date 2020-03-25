@@ -2,7 +2,7 @@ const server = require('../server'),
   request = require('supertest'),
   db = require('../../data/db-config')
 
-describe('/apply', () => {
+describe('/application', () => {
   let token
 
   beforeAll(async done => {
@@ -57,6 +57,44 @@ describe('/apply', () => {
       expect(JSON.parse(res.text).message).toBe(
         'Application successfully submitted.'
       )
+    })
+  })
+  describe(`GET '/:id'`, () => {
+    test('should return application and status 200', async () => {
+      const res = await request(server)
+        .get('/application/4')
+        .set('authorization', token)
+
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
+      expect(res.status).toBe(200)
+
+      expect(JSON.parse(res.text)).toMatchObject({
+        app_q1_a: {
+          option_1: true,
+          option_2: false,
+          option_3: true,
+          option_4: false,
+        },
+        app_q1_b: 'app_q1_b test 1',
+        app_q2: {
+          option_1: false,
+          option_2: true,
+          option_3: false,
+          option_4: true,
+          option_5: false,
+        },
+        app_q3: { answer: true },
+        app_q4: { answer: 2 },
+        app_q5: 'app_q5 test 1',
+        app_q6_a: { answer: false },
+        app_q6_b: {
+          answer_a: 'answer_a',
+          answer_b: 'answer_b',
+          answer_c: 'answer_c',
+        },
+        app_status: 'Not yet reviewed',
+      })
     })
   })
 })
