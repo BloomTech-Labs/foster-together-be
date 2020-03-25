@@ -45,7 +45,7 @@ describe('/members', () => {
 
       expect(JSON.parse(res.text).message).toBe('Member successfully added.')
 
-      expect(JSON.parse(res.text).saved[0]).toMatchObject({
+      expect(JSON.parse(res.text).user).toMatchObject({
         first_name: 'John',
         last_name: 'Smith',
         email: 'john.smith@email.com',

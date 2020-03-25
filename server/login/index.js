@@ -6,7 +6,7 @@ module.exports = router
 
 router.post('/', valBody, validatePassword, async (req, res) => {
   const token = generateToken(req.body.user)
-  res.json({ ...req.body.user, token })
+  res.json({ user: { ...req.body.user }, token })
 })
 
 router.use(errorHandling)

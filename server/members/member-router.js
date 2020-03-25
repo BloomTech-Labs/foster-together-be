@@ -17,10 +17,8 @@ router.post(
     const { membertype } = req.params
     const { id } = await Members.add(membertype, req.body)
     const token = generateToken({ id, membertype })
-    const saved = await Members.find({ 'm.id': id })
-    res
-      .status(201)
-      .json({ message: 'Member successfully added.', saved, token })
+    const user = (await Members.find({ 'm.id': id }))[0]
+    res.status(201).json({ message: 'Member successfully added.', user, token })
   }
 )
 
