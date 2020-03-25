@@ -1,13 +1,10 @@
-
 exports.seed = function(knex) {
-  // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
-};
+  return knex('app_q4').then(function() {
+    return knex('app_q4').insert([
+      { option_1: false, option_2: false },
+      { option_1: true, option_2: false },
+      { option_1: false, option_2: true },
+      { option_1: true, option_2: true },
+    ])
+  })
+}
