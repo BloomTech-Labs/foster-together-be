@@ -5,8 +5,9 @@ const router = require('express-promise-router')(),
     hashPassword,
     generateToken,
     authenticate,
+    userOrAdmin,
   } = require('../middlewareAndTools'),
-  { validateMemberBody, userOrAdmin } = require('./middleware'),
+  { validateMemberBody } = require('./middleware'),
   Members = require('./member-helper.js')
 
 router.post(
