@@ -44,12 +44,6 @@ const findA = async (app_q, a_id) =>
     .where('id', a_id)
     .first()
 
-const status = aa_id => {
-  if (aa_id === 1) return 'Not yet reviewed'
-  if (aa_id === 2) return 'Approved'
-  if (aa_id === 3) return 'Denied'
-  if (aa_id === 4) return 'Out of area'
-}
 const findApp = async member_id => {
   const {
     app_approved_id,
@@ -74,7 +68,7 @@ const findApp = async member_id => {
     app_q5: app_q5,
     app_q6_a: (await findA('app_q6_a', app_q6_a_id)).answer,
     app_q6_b: await findA('app_q6_b', app_q6_b_id),
-    app_status: status(app_approved_id),
+    app_status: app_approved_id,
   }
 }
 
