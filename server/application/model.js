@@ -48,25 +48,42 @@ const status = aa_id => {
   if (aa_id === 1) return 'Not yet reviewed'
   if (aa_id === 2) return 'Approved'
   if (aa_id === 3) return 'Denied'
-  if (aa_id === 4) return 'Out of Area'
+  if (aa_id === 4) return 'Out of area'
 }
 const findApp = async member_id => {
-  const app = await db('application')
+  const {
+    app_approved_id,
+    app_q1_a_id,
+    app_q1_b,
+    app_q2_id,
+    app_q3_id,
+    app_q4_id,
+    app_q5,
+    app_q6_a_id,
+    app_q6_b_id,
+  } = await db('application')
     .where(member_id)
     .first()
 
-  const approval = status(app.app_approved_id)
-
   return {
-    app_q1_a: await findA('app_q1_a', app.app_q1_a_id),
-    app_q1_b: app.app_q1_b,
-    app_q2: await findA('app_q2', app.app_q2_id),
-    app_q3: await findA('app_q3', app.app_q3_id),
-    app_q4: await findA('app_q4', app.app_q4_id),
-    app_q5: app.app_q5,
-    app_q6_a: await findA('app_q6_a', app.app_q6_a_id),
-    app_q6_b: await findA('app_q6_b', app.app_q6_b_id),
-    app_status: approval,
+    app_q1_a: await findA('app_q1_a', app_q1_a_id),
+    app_q1_b: app_q1_b,
+    app_q2: await findA('app_q2', app_q2_id),
+    app_q3: await findA('app_q3', app_q3_id),
+    app_q4: await findA('app_q4', app_q4_id),
+    app_q5: app_q5,
+    app_q6_a: await findA('app_q6_a', app_q6_a_id),
+    app_q6_b: await findA('app_q6_b', app_q6_b_id),
+    app_status: status(app_approved_id),
   }
 }
-module.exports = { addApp, findApp }
+
+const changeAppStatus = async (member_id, { newStatus }) => {
+  ;(
+    await db('application')
+      .update({ app_approved_id: newStatus })
+      .where(member_id)
+  )[0]
+  return await findApp(member_id)
+}
+module.exports = { addApp, findApp, changeAppStatus }

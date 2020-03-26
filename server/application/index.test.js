@@ -97,4 +97,29 @@ describe('/application', () => {
       })
     })
   })
+  describe(`PUT '/:id'`, () => {
+    test('should change status, respond with 200 and application w/new status', async () => {
+      admin = await request(server)
+        .post('/login')
+        .send({
+          email: 'hope@email.com',
+          password: 'hope',
+        })
+
+      token = admin.body.token
+
+      console.log(token)
+
+      const res = await request(server)
+        .put('/application/4')
+        .set('authorization', token)
+        .send({ newStatus: 2 })
+
+      expect(JSON.parse(res.text).error).toBe(undefined)
+
+      expect(res.status).toBe(200)
+
+      expect(JSON.parse(res.text)).toMatchObject({ app_status: 'Approved' })
+    })
+  })
 })

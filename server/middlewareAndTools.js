@@ -59,6 +59,11 @@ const userOrAdmin = (req, res, next) => {
   else res.status(401).json({ message: 'Authentication Failure', token: false })
 }
 
+const onlyAdmin = (req, res, next) =>
+  req.decodedToken.type === 'admins'
+    ? next()
+    : res.status(401).json({ message: 'Authentication Failure', token: false })
+
 // Custom error handler
 const errorHandling = (err, req, res, next) =>
   res.status(500).json({
@@ -73,4 +78,5 @@ module.exports = {
   generateToken,
   hashPassword,
   userOrAdmin,
+  onlyAdmin,
 }
