@@ -16,16 +16,11 @@ router.get('/:id', authenticate, userOrAdmin, async (req, res) =>
   res.json(await findApp({ member_id: req.params.id }))
 )
 
-router.put('/:id', authenticate, onlyAdmin, async (req, res) =>
-  res.json(
-    await changeAppStatus(
-      {
-        member_id: req.params.id,
-      },
-      { newStatus: req.body.newStatus }
-    )
-  )
-)
+router.put('/:id', authenticate, onlyAdmin, async (req, res) => {
+  const { newStatus } = req.body
+  console.log(newStatus)
+  res.json(await changeAppStatus({ member_id: req.params.id }, newStatus))
+})
 
 router.use(errorHandling)
 

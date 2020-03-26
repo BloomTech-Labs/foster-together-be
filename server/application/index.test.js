@@ -80,10 +80,10 @@ describe('/application', () => {
           option_4: true,
           option_5: false,
         },
-        app_q3: { answer: true },
-        app_q4: { answer: 2 },
+        app_q3: true,
+        app_q4: 2,
         app_q5: 'app_q5 test 1',
-        app_q6_a: { answer: false },
+        app_q6_a: false,
         app_q6_b: {
           answer_a: 'answer_a',
           answer_b: 'answer_b',
