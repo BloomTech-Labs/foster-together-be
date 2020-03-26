@@ -6,7 +6,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 // Admins should have a route to change emails stored for each status
 
 const approvedEmail = member => ({
-  // to: `${member.email}`
+  // in production, key 'to' value should be `${member.email}`
   to: 'labs.fostertogether@gmail.com',
   from: 'connect@fostertogether.co',
   subject: 'Foster Together Application Approved!',
