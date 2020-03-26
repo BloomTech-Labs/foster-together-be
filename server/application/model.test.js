@@ -83,12 +83,12 @@ describe('db functions for application', () => {
         answer_b: 'answer_b',
         answer_c: 'answer_c',
       },
-      app_status: 'Not yet reviewed',
+      app_status: 1,
     })
   })
   test('should change app status', async () => {
     expect(await changeAppStatus({ member_id: 4 }, 2)).toMatchObject({
-      app_status: 'Approved',
+      app_status: 2,
     })
   })
 })

@@ -66,8 +66,8 @@ describe('member-helper', () => {
           state: 'Colorado',
           zip: '80014',
           type: 'neighbors',
-          longitude: '10.61944',
-          latitude: '-91.47337',
+          longitude: '-104.74184416995553',
+          latitude: '39.99855555395869',
         })
       })
     })

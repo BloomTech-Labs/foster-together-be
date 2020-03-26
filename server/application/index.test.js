@@ -89,7 +89,7 @@ describe('/application', () => {
           answer_b: 'answer_b',
           answer_c: 'answer_c',
         },
-        app_status: 'Not yet reviewed',
+        app_status: 1,
       })
     })
   })
@@ -116,7 +116,7 @@ describe('/application', () => {
 
       expect(res.status).toBe(200)
 
-      expect(res.body).toMatchObject({ app_status: 'Approved' })
+      expect(res.body).toMatchObject({ app_status: 2 })
     })
   })
 })
