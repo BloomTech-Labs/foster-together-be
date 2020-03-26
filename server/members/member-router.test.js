@@ -82,8 +82,8 @@ describe('/members', () => {
         city: 'Boulder',
         state: 'Colorado',
         zip: '80301',
-        longitude: '10.61944',
-        latitude: '-91.47337',
+        longitude: '-104.74184555996333',
+        latitude: '39.99855629395559',
       })
     })
   })
@@ -109,8 +109,8 @@ describe('/members', () => {
         state: 'Colorado',
         zip: '80301',
         type: 'neighbors',
-        longitude: '10.61944',
-        latitude: '-91.47337',
+        longitude: '-104.74184555996333',
+        latitude: '39.99855629395559',
       })
     })
   })
@@ -128,8 +128,8 @@ describe('/members', () => {
           city: 'Portland',
           state: 'OR',
           zip: '97232',
-          longitude: -54.5515,
-          latitude: 123.8454,
+          longitude: '-106.74184555996333',
+          latitude: '41.99855629395559',
         })
 
       expect(JSON.parse(res.text).error).toBe(undefined)
@@ -147,8 +147,8 @@ describe('/members', () => {
         city: 'Portland',
         state: 'OR',
         zip: '97232',
-        longitude: '-54.5515',
-        latitude: '123.8454',
+        longitude: '-106.74184555996333',
+        latitude: '41.99855629395559',
       })
     })
   })
