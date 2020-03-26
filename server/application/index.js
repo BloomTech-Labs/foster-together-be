@@ -18,7 +18,7 @@ router.get('/:id', authenticate, userOrAdmin, async (req, res) =>
 
 router.put('/:id', authenticate, onlyAdmin, async (req, res) => {
   const { newStatus } = req.body
-  console.log(newStatus)
+  // newStatus === 2 &&
   res.json(await changeAppStatus({ member_id: req.params.id }, newStatus))
 })
 
