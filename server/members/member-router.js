@@ -6,6 +6,7 @@ const router = require('express-promise-router')(),
     generateToken,
     authenticate,
     userOrAdmin,
+    onlyAdmin,
   } = require('../middlewareAndTools'),
   { validateMemberBody } = require('./middleware'),
   Members = require('./member-helper.js')
@@ -23,10 +24,8 @@ router.post(
   }
 )
 
-router.get('/', authenticate, async (req, res) =>
-  req.decodedToken.type === 'admins'
-    ? res.json(await Members.find(req.query))
-    : res.status(401).json({ message: 'Authentication Failure', token: false })
+router.get('/', authenticate, onlyAdmin, async (req, res) =>
+  res.json(await Members.find(req.query))
 )
 
 router.get('/:id', validateId, authenticate, userOrAdmin, async (req, res) =>

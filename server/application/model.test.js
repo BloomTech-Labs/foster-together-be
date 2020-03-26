@@ -1,4 +1,4 @@
-const { addApp, findApp } = require('./model'),
+const { addApp, findApp, changeAppStatus } = require('./model'),
   db = require('../../data/db-config.js')
 
 describe('db functions for application', () => {
@@ -74,16 +74,21 @@ describe('db functions for application', () => {
         option_4: true,
         option_5: false,
       },
-      app_q3: { answer: true },
-      app_q4: { answer: 2 },
+      app_q3: true,
+      app_q4: 2,
       app_q5: 'app_q5 test 1',
-      app_q6_a: { answer: false },
+      app_q6_a: false,
       app_q6_b: {
         answer_a: 'answer_a',
         answer_b: 'answer_b',
         answer_c: 'answer_c',
       },
       app_status: 'Not yet reviewed',
+    })
+  })
+  test('should change app status', async () => {
+    expect(await changeAppStatus({ member_id: 4 }, 2)).toMatchObject({
+      app_status: 'Approved',
     })
   })
 })
