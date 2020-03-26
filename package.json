@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/Lambda-School-Labs/foster-together-be#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.5.5",
     "@sentry/node": "^5.12.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
