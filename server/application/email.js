@@ -2,7 +2,7 @@ const sgMail = require('@sendgrid/mail')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-// Whole object should be stringified and stored in database. 
+// Whole object should be stringified and stored in database.
 // Admins should have a route to change emails stored for each status
 
 const approvedEmail = member => ({
@@ -36,12 +36,11 @@ const approvedEmail = member => ({
 })
 
 const email = async (status, member) => {
-    try {
-      if (status === 2)
-      await sgMail.send(approvedEmail(member));
-    } catch (err) {
-      throw new Error(err.toString())
-    }
+  try {
+    if (status === 2) await sgMail.send(approvedEmail(member))
+  } catch (err) {
+    throw new Error(err.toString())
   }
+}
 
 module.exports = { email }

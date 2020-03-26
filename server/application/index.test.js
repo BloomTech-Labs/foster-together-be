@@ -96,7 +96,7 @@ describe('/application', () => {
   describe(`PUT '/:id'`, () => {
     test('should change status, respond with 200 and application w/new status', async () => {
       // token must be set to an admins
-      token = (
+      token = await (
         await request(server)
           .post('/login')
           .send({
@@ -109,6 +109,8 @@ describe('/application', () => {
         .put('/application/4')
         .set('authorization', token)
         .send({ newStatus: 2 })
+
+      expect(res.body.message).toBe(undefined)
 
       expect(res.body.error).toBe(undefined)
 
