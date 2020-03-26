@@ -131,29 +131,29 @@ To get the server running locally:
 
 | Method | Endpoint            | Access Control | Description                                 |
 | ------ | ------------------- | -------------- | ------------------------------------------- |
-| POST   | `/api/login`        | admins         | Log in as an admin.                         |
-| POST   | `/api/register`     | admins         | Create a new admin account.                 |
-| GET    | `/api/logout`       | admins         | Signs out an admin.                         |
+| POST   | `/login`        | admins         | Log in as an admin.                         |
+| POST   | `/register`     | admins         | Create a new admin account.                 |
+| GET    | `/logout`       | admins         | Signs out an admin.                         |
 
 #### Neighbor Routes
 
 | Method | Endpoint             | Access Control        | Description                                                                                                             |
 | ------ | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| GET    | `/api/neighbors`     | admins                | Returns the contact information for all foster neighbors.                                                               |
-| GET    | `/api/neighbors/:id` | admins                | Returns the contact information for a foster neighbor by ID.                                                            |
-| POST   | `/api/neighbors`     | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/api/neighbors/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
-| DELETE | `/api/neighbors/:id` | admins                | Delete a foster neighbor.                                                                                               |
+| GET    | `/neighbors`     | admins                | Returns the contact information for all foster neighbors.                                                               |
+| GET    | `/neighbors/:id` | admins                | Returns the contact information for a foster neighbor by ID.                                                            |
+| POST   | `/neighbors`     | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
+| PUT    | `/neighbors/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
+| DELETE | `/neighbors/:id` | admins                | Delete a foster neighbor.                                                                                               |
 
 #### Family Routes
 
 | Method | Endpoint            | Access Control       | Description                                                                                                           |
 | ------ | ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| GET    | `/api/families`     | admins               | Returns the contact information for all foster families.                                                              |
-| GET    | `/api/families/:id` | admins               | Returns the contact information for a foster family by ID.                                                            |
-| POST   | `/api/families`     | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/api/families/:id` | admins               | Update the contact information for a foster family.                                                                   |
-| DELETE | `/api/families/:id` | admins               | Delete a foster family.                                                                                               |
+| GET    | `/families`     | admins               | Returns the contact information for all foster families.                                                              |
+| GET    | `/families/:id` | admins               | Returns the contact information for a foster family by ID.                                                            |
+| POST   | `/families`     | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
+| PUT    | `/families/:id` | admins               | Update the contact information for a foster family.                                                                   |
+| DELETE | `/families/:id` | admins               | Delete a foster family.                                                                                               |
 
 # Data Model
 
