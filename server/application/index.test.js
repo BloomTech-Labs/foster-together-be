@@ -7,16 +7,15 @@ describe('/application', () => {
 
   beforeAll(async done => {
     await db.seed.run()
-    request(server)
-      .post('/login')
-      .send({
-        email: 'GreceMana@yahoo.com',
-        password: 'eric',
-      })
-      .end((err, response) => {
-        token = response.body.token // save the token!
-        done()
-      })
+    token = (
+      await request(server)
+        .post('/login')
+        .send({
+          email: 'GreceMana@yahoo.com',
+          password: 'eric',
+        })
+    ).body.token
+    done()
   })
 
   describe(`POST '/'`, () => {
@@ -50,13 +49,11 @@ describe('/application', () => {
           },
         })
 
-      expect(JSON.parse(res.text).error).toBe(undefined)
+      expect(res.body.error).toBe(undefined)
 
       expect(res.status).toBe(201)
 
-      expect(JSON.parse(res.text).message).toBe(
-        'Application successfully submitted.'
-      )
+      expect(res.body.message).toBe('Application successfully submitted.')
     })
   })
   describe(`GET '/:id'`, () => {
@@ -65,11 +62,11 @@ describe('/application', () => {
         .get('/application/4')
         .set('authorization', token)
 
-      expect(JSON.parse(res.text).error).toBe(undefined)
+      expect(res.body.error).toBe(undefined)
 
       expect(res.status).toBe(200)
 
-      expect(JSON.parse(res.text)).toMatchObject({
+      expect(res.body).toMatchObject({
         app_q1_a: {
           option_1: true,
           option_2: false,
@@ -99,27 +96,26 @@ describe('/application', () => {
   })
   describe(`PUT '/:id'`, () => {
     test('should change status, respond with 200 and application w/new status', async () => {
-      admin = await request(server)
-        .post('/login')
-        .send({
-          email: 'hope@email.com',
-          password: 'hope',
-        })
-
-      token = admin.body.token
-
-      console.log(token)
+      // token must be set to an admins
+      token = (
+        await request(server)
+          .post('/login')
+          .send({
+            email: 'hope@email.com',
+            password: 'hope',
+          })
+      ).body.token
 
       const res = await request(server)
         .put('/application/4')
         .set('authorization', token)
         .send({ newStatus: 2 })
 
-      expect(JSON.parse(res.text).error).toBe(undefined)
+      expect(res.body.error).toBe(undefined)
 
       expect(res.status).toBe(200)
 
-      expect(JSON.parse(res.text)).toMatchObject({ app_status: 'Approved' })
+      expect(res.body).toMatchObject({ app_status: 'Approved' })
     })
   })
 })
