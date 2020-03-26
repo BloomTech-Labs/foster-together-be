@@ -23,12 +23,13 @@ const authenticate = (req, res, next) => {
   if (!token)
     return res
       .status(401)
-      .json({ message: 'Authentication Failure', token: false })
+      .json({ message: 'Authentication Failure, No Token Sent!', token: false })
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
     if (err)
-      return res
-        .status(401)
-        .json({ message: 'Authentication Failure', token: false })
+      return res.status(401).json({
+        message: 'Authentication Failure, Token Not Valid!',
+        token: false,
+      })
     req.decodedToken = decodedToken
     next()
   })
@@ -62,7 +63,12 @@ const userOrAdmin = (req, res, next) => {
 const onlyAdmin = (req, res, next) =>
   req.decodedToken.type === 'admins'
     ? next()
-    : res.status(401).json({ message: 'Authentication Failure', token: false })
+    : res
+        .status(401)
+        .json({
+          message: 'Authentication Failure, not set to admins',
+          token: false,
+        })
 
 // Custom error handler
 const errorHandling = (err, req, res, next) =>
