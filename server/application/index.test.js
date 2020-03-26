@@ -5,7 +5,7 @@ const server = require('../server'),
 describe('/application', () => {
   let token
 
-  beforeAll(async done => {
+  beforeAll(async () => {
     await db.seed.run()
     token = (
       await request(server)
@@ -15,7 +15,6 @@ describe('/application', () => {
           password: 'eric',
         })
     ).body.token
-    done()
   })
 
   describe(`POST '/'`, () => {
