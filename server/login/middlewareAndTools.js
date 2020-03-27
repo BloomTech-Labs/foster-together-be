@@ -18,7 +18,7 @@ const validatePassword = async (req, res, next) => {
     ? await db('admins')
         .where('id', user.admin_id)
         .first()
-    : await find({ 'm.id': user.member_id }).first()
+    : (await find({ 'm.id': user.member_id }))[0]
   if (!user || !bcrypt.compareSync(req.body.password, user.password))
     return res
       .status(401)

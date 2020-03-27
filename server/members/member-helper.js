@@ -68,8 +68,16 @@ async function add(membertype, data) {
   return member_id
 }
 
-function find(filter) {
-  return db('users AS u')
+const appStatus = async m_id => {
+  const status = await db('application')
+    .where('member_id', m_id)
+    .first()
+  if (!status) return 1
+  return status.app_approved_id
+}
+
+async function find(filter) {
+  const members = await db('users AS u')
     .join('members AS m', 'u.member_id', 'm.id')
     .join('membertypes AS mt', 'm.membertype_id', 'mt.id')
     .join('city_state_zip AS csz', 'csz.id', `m.city_state_zip_id`)
@@ -93,6 +101,13 @@ function find(filter) {
     .modify(function(queryBuilder) {
       if (filter) queryBuilder.where(filter)
     })
+
+  return await Promise.all(
+    members.map(async member => ({
+      ...member,
+      application: member.type === 'families' ? 2 : await appStatus(member.id),
+    }))
+  )
 }
 
 async function update(id, data) {
