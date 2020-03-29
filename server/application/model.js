@@ -45,30 +45,22 @@ const findA = async (app_q, a_id) =>
     .first()
 
 const findApp = async member_id => {
-  const {
-    app_approved_id,
-    app_q1_a_id,
-    app_q1_b,
-    app_q2_id,
-    app_q3_id,
-    app_q4_id,
-    app_q5,
-    app_q6_a_id,
-    app_q6_b_id,
-  } = await db('application')
+  const a = await db('application')
     .where(member_id)
     .first()
 
+  if (!a) return false
+
   return {
-    app_q1_a: await findA('app_q1_a', app_q1_a_id),
-    app_q1_b: app_q1_b,
-    app_q2: await findA('app_q2', app_q2_id),
-    app_q3: (await findA('app_q3', app_q3_id)).answer,
-    app_q4: (await findA('app_q4', app_q4_id)).answer,
-    app_q5: app_q5,
-    app_q6_a: (await findA('app_q6_a', app_q6_a_id)).answer,
-    app_q6_b: await findA('app_q6_b', app_q6_b_id),
-    app_status: app_approved_id,
+    app_q1_a: await findA('app_q1_a', a.app_q1_a_id),
+    app_q1_b: a.app_q1_b,
+    app_q2: await findA('app_q2', a.app_q2_id),
+    app_q3: (await findA('app_q3', a.app_q3_id)).answer,
+    app_q4: (await findA('app_q4', a.app_q4_id)).answer,
+    app_q5: a.app_q5,
+    app_q6_a: (await findA('app_q6_a', a.app_q6_a_id)).answer,
+    app_q6_b: await findA('app_q6_b', a.app_q6_b_id),
+    app_status: a.app_approved_id,
   }
 }
 
