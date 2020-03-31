@@ -79,13 +79,21 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 
 # APIs
 
-#### [Auth0](https://auth0.com/) (coming soon)
+#### [SendGrid](https://github.com/sendgrid/sendgrid-nodejs)
 
-Auth0 is a flexible, drop-in solution to add authentication and authorization services to an application.
+Sends email to member upon application approval, ready to be configured to send emails in other situations as well. Should set up a route for the admins to upload emails in serialised format and then send those emails for each situation. EX. PUT /emails/app/approved. 
 
-#### [Sterling](https://api.sterlingtalentsolutions.com/) (coming soon)
+#### [Contentful](https://www.contentful.com/developers/docs/javascript/) (coming soon)
 
-The Sterling API allows you to integrate background checks into your platform and manage the process from end-to-end.
+Contentful will be used to make the training and possibly the application data easily changeable by the administators (non tech) users of the site. It will greatly reduce the amount of hardcoded and repeated data in the front end of the site as well. 
+
+#### [Stripe](https://stripe.com/docs/payments/save-card-without-authentication/) (coming soon)
+
+Stripe will be used to collect the payment for the background check. Flat rate of 20 dollars. Account has been set up already and API keys are available from it upon login. Link to the documentation for the integration that was previously working, but there is also Stripe Checkout that could be used. 
+
+#### [Checkr](https://docs.checkr.com/) (coming soon)
+
+Checkr will be used to perform the background check. Create a Canidate profile upon completion of the Stripe payment using the user's email, then use the invitation API to send that user an invitation to complete the background check on Checkr. Will also need a POST route to collect the data from the Checkr WebHooks so we can update the database with the results when they're available. Account has been set up already and API keys are available upon login. 
 
 ## Environment Variables
 
@@ -105,6 +113,7 @@ This allows CI on AWS to use RDS databases to test on, keeping production exactl
 * PORT_TEST - postgres port
 * NAME_TEST - database
 * JWT_SECRET - string for jwt secret
+* SENDGRID_API_KEY - key for SENDGRID API.
 
 
 # Testing
@@ -131,29 +140,21 @@ To get the server running locally:
 
 | Method | Endpoint            | Access Control | Description                                 |
 | ------ | ------------------- | -------------- | ------------------------------------------- |
-| POST   | `/login`        | admins         | Log in as an admin.                         |
-| POST   | `/register`     | admins         | Create a new admin account.                 |
-| GET    | `/logout`       | admins         | Signs out an admin.                         |
+| POST   | `/login`            | any user       | Log in as a user.                           |
+| POST   | `/register`         | admins         | Create a new admin account.                 |
+| GET    | `/logout`           | any user       | Signs out a user.                           |
 
 #### Neighbor Routes
 
 | Method | Endpoint             | Access Control        | Description                                                                                                             |
 | ------ | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| GET    | `/neighbors`     | admins                | Returns the contact information for all foster neighbors.                                                               |
-| GET    | `/neighbors/:id` | admins                | Returns the contact information for a foster neighbor by ID.                                                            |
-| POST   | `/neighbors`     | new neighbors, admins | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/neighbors/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
-| DELETE | `/neighbors/:id` | admins                | Delete a foster neighbor.                                                                                               |
-
-#### Family Routes
-
-| Method | Endpoint            | Access Control       | Description                                                                                                           |
-| ------ | ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| GET    | `/families`     | admins               | Returns the contact information for all foster families.                                                              |
-| GET    | `/families/:id` | admins               | Returns the contact information for a foster family by ID.                                                            |
-| POST   | `/families`     | new families, admins | Add a new foster family. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
-| PUT    | `/families/:id` | admins               | Update the contact information for a foster family.                                                                   |
-| DELETE | `/families/:id` | admins               | Delete a foster family.                                                                                               |
+| GET    | `/members`       | admins                | Returns the contact information for all neighbors and families.                                                         |
+| GET    | `/members/{querystring}`| admins         | Returns member information based on a query string. ex: /members/?type=families.                                    |
+| GET    | `/members/:id` | admin or exact user   | Returns the contact information for a foster neighbor by ID.                                                             |
+| POST   | `/members/:membertype`     | all     | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
+| PUT    | `/members/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
+| DELETE | `/members/:id` | admins                | Delete a foster neighbor.                                                                                               |
+|
 
 # Data Model
 
@@ -163,9 +164,8 @@ To get the server running locally:
 
 ```
 {
-  admin_id: INCREMENT, // primary key
-  email: STRING,
-  display_name: STRING
+  id: INCREMENT, // primary key
+  first_name: TEXT
 }
 ```
 
@@ -175,8 +175,8 @@ To get the server running locally:
 
 ```
 {
-  city_id: INCREMENT, // primary key
-  city: STRING
+  id: INCREMENT, // primary key
+  city: TEXT
 }
 ```
 
@@ -186,8 +186,8 @@ To get the server running locally:
 
 ```
 {
-  state_id: INCREMENT, // primary key
-  state: STRING
+  id: INCREMENT, // primary key
+  state: TEXT
 }
 ```
 
@@ -197,8 +197,8 @@ To get the server running locally:
 
 ```
 {
-  zip_id: INCREMENT, // primary key
-  zip: STRING
+  id: INCREMENT, // primary key
+  zip: TEXT
 }
 ```
 
@@ -208,7 +208,7 @@ To get the server running locally:
 
 ```
 {
-  city_state_zip_id: INCREMENT, // primary key
+  id: INCREMENT, // primary key
   //foreign keys
   city_id: INTEGER,
   state_id: INTEGER,
@@ -216,35 +216,37 @@ To get the server running locally:
 }
 ```
 
-#### FAMILIES
+#### MEMBERS
 
 ---
 
 ```
 {
-  family_id: INCREMENT, // primary key
-  first_name: STRING,
-  last_name: STRING,
-  email: STRING,
-  phone: STRING,
-  address: STRING,
+  id: INCREMENT, // primary key
+  first_name: TEXT,
+  last_name: TEXT,
+  email: TEXT,
+  phone: TEXT,
+  address: TEXT,
   city_state_zip_id: INTEGER // foreign key
+  latitude: TEXT
+  longitude: TEXT
+  membertype_id: INTEGER // foreign key
+  match_id: INTEGER //foreign key to same table
 }
 ```
 
-#### NEIGHBORS
+#### USERS
 
 ---
 
 ```
 {
-  neighbor_id: INCREMENT, // primary key
-  first_name: STRING,
-  last_name: STRING,
-  email: STRING,
-  phone: STRING,
-  address: STRING,
-  city_state_zip_id: INTEGER // foreign key
+  id: INCREMENT, // primary key
+  email: TEXT,
+  password: TEXT // hashed
+  member_id: INTEGER // foreign key
+  admin_id: INTEGER // foreign key
 }
 ```
 
@@ -254,13 +256,14 @@ To get the server running locally:
 
 `find()` -> Get a list of all foster neighbors or families
 
-`findBy(filter)` -> Get foster neighbor(s) or famili(es) by a key name, ie `{ email }`
-
-`findById(id)` -> Get a foster neighbor or family by ID
+`find(filter)` -> Get foster neighbor(s) or famili(es) by a key name, ie `{ email }`
 
 `update(id, data)` -> Update a foster neighbor or family's contact information, or an admin's account info
 
 `remove(id)` -> Delete a foster neighbor or family
+
+#### NOTE
+There is an application table with various questions in indivdual tables, but per engineering manager, should be changed to a single serialised table. Working as written, but would be much simplier serialised. 
 
 ## Contributing
 
