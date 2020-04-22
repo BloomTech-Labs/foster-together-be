@@ -305,3 +305,6 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/foster-together-fe#readme) for details on the frontend of our project.
+
+### AWS Stuff
+
