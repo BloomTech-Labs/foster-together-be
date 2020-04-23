@@ -9,6 +9,7 @@ const server = require('express')(),
   membersRouter = require('./members/member-router'),
   backgroundRouter = require('./background'),
   applicationRouter = require('./application')
+  neighborRouter = require('./neighborTraining/neighbor-router')
 
 server.use(json, morgan, helmet, cors)
 
@@ -18,6 +19,7 @@ server.use('/register', registerRouter)
 server.use('/members', membersRouter)
 server.use('/background', backgroundRouter)
 server.use('/application', applicationRouter)
+server.use('/training', neighborRouter)
 
 server.get('/', (req, res) => {
   res.status(200).json({ Server: 'Running' })
