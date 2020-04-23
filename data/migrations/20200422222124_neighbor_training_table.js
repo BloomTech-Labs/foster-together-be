@@ -1,6 +1,3 @@
-
-Do not uncomment and run migration until after schema is finalized and approved.
-
 exports.up = function(knex) {
   return knex.schema.createTable('neighbor_training', tbl => {
       tbl.increments('id')
@@ -38,7 +35,7 @@ exports.up = function(knex) {
       tbl.text('module5_q3')
       tbl.boolean('training_completed')
       tbl.boolean('training_approved')
-      tbl.integer(member_id)
+      tbl.integer('member_id')
         .unsigned()
         .references('members.id')
         .onUpdate('CASCADE')

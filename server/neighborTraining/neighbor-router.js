@@ -2,7 +2,7 @@ const express = require('express');
 
 const NeighborTraining = require('./training-helper')
 
-const router = require('express');
+const router = express.Router();
 
 router.post('/start', (req, res) => {
     let member_id = req.body.member_id;
