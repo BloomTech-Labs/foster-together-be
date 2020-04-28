@@ -3,6 +3,7 @@ const server = require('../server'),
     db = require('../../data/db-config')
 
 describe('/training', () => {
+
     beforeAll(async done => {
         await db.seed.run();
         done();
@@ -13,7 +14,7 @@ describe('/training', () => {
             const res = await request(server)
                 .post('/training/start')
                 .send({
-                    member_id: '1'
+                    member_id: 1
                 })
             
             expect(JSON.parse(res.text).error).toBe(undefined)

@@ -8,10 +8,13 @@ module.exports = {
 }
 
 function add(member_id) {
+    let newTraining = {
+        member_id: member_id
+    }
     return db('neighbor_training')
-        .insert(member_id)
+        .insert(newTraining)
         .then(ids => {
-            return findTrainingByUserId(ids[0])
+            return db('neighbor_training')  //findTrainingByUserId(ids[0])
         })
 }
 
