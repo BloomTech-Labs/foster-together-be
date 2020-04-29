@@ -44,4 +44,20 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    NeighborTraining.remove(id)
+        .where('member_id', id)
+        .then(count => {
+            res.status(200).json({
+                message: `${count} record deleted`
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: "There was an error deleting training"
+            })
+        })
+})
+
 module.exports = router;
