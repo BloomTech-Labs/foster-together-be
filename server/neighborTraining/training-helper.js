@@ -2,6 +2,7 @@ const db = require('../../data/db-config.js')
 
 module.exports = {
     add,
+    find,
     findTrainingByUserId,
     update,
     remove
@@ -21,6 +22,10 @@ function add(member_id) {
         .then(ids => {
             return db('neighbor_training')  //findTrainingByUserId(ids[0])
         })
+}
+
+function find(){
+    return db('neighbor_training')
 }
 
 function findTrainingByUserId(member_id) {

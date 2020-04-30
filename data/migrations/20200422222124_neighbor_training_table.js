@@ -37,6 +37,8 @@ exports.up = function(knex) {
       tbl.boolean('training_approved')
       tbl.integer('member_id')
         .unsigned()
+        .notNullable()
+        .unique()
         .references('members.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')

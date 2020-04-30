@@ -44,6 +44,19 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.get('/', (req, res) => {
+    NeighborTraining.find()
+        .then(neighbors => {
+            res.status(200).json(neighbors);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({
+                message: "Could not retrieve training"
+            })
+        })
+})
+
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
     NeighborTraining.remove(id)
