@@ -23,5 +23,18 @@ describe('/training', () => {
         })
     })
 
-    
+    describe('GET /training/:id', () => {
+        test('should respond with a status 200 and a json object containing the training table for a user', async () => {
+            const res = await request(server)
+                .get('/training/1')
+
+                expect(res.body).toBeTruthy()
+
+                console.log(res)
+
+                expect(res.status).toBe(200)
+
+                
+        })
+    })    
 })
