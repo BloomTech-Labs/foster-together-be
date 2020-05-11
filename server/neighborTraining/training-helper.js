@@ -11,9 +11,9 @@ module.exports = {
 function add(member_id) {
     let newTraining = {
         member_id: member_id,
-        module2_q4: false,
-        module2_q7: false,
-        module2_q8: false,
+        m2_q4: false,
+        m2_q7: false,
+        m2_q8: false,
         training_completed: false,
         training_approved: false
     }
