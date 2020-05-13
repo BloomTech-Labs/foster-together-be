@@ -1,7 +1,5 @@
-exports.up = function(knex) {
-    
-  };
+// This file is not used due to a miscommunication and left in only so that github tests will pass.
 
-exports.down = function(knex) {
-    
-  };
+exports.up = function(knex) {};
+
+exports.down = function(knex) {};

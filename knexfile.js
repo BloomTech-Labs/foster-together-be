@@ -31,13 +31,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: {
-      host: process.env.RDS_HOSTNAME,
-      user: process.env.RDS_USERNAME,
-      password: process.env.RDS_PASSWORD,
-      port: process.env.RDS_PORT,
-      database: 'postgres',
-    },
+    connection:  DATABASE_URL,
     migrations: { directory: './data/migrations' },
     seeds: { directory: './data/seeds/productionSeed' },
   },
