@@ -154,7 +154,16 @@ To get the server running locally:
 | POST   | `/members/:membertype`     | all     | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
 | PUT    | `/members/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
 | DELETE | `/members/:id` | admins                | Delete a foster neighbor.                                                                                               |
-|
+
+#### Neighbor Training Routes
+
+| Method | Endpoint             | Access Control        | Description                                                                                                             |
+| ------ | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/training/start`    | user                  | Adds a new training table for a user if one does not already exist |
+| PUT    | `/training/update`   | user                  | Updates fields in user's training table and returns updated table |
+| GET    | `/training/:id`      | user                  | Returns user's training table |
+| GET    | `/training/`         | user                  | Returns all users' training tables |
+| DELETE | `/training/:id`      | user                  | Deletes a user's training table |
 
 # Data Model
 
