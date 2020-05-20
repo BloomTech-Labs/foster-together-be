@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: '12'
+          node-version: "12"
       - run: npm install
       - run: sudo npm install -g knex
       - uses: paambaati/codeclimate-action@v2.4.0
@@ -22,3 +22,6 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         with:
           coverageCommand: npm run coverage
+          coverageLocations: "./coverage/clover.xml:clover"
+          # Great for troubleshooting
+          debug: true
