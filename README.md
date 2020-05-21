@@ -259,6 +259,51 @@ To get the server running locally:
 }
 ```
 
+#### NEIGHBOR TRAINING
+
+
+---
+
+```
+{
+  id: INCREMENT, // primary key
+  m1_q1: TEXT,
+  m1_q2: TEXT,
+  m2_q1: TEXT,
+  m2_q2: TEXT,
+  m2_q3: INTEGER,
+  m2_q4: BOOLEAN,
+  m2_q5: INTEGER,
+  m2_q6: TEXT,
+  m2_q7: BOOLEAN,
+  m2_q8: BOOLEAN,
+  m2_q9: TEXT,
+  m3_q1: TEXT,
+  m3_q2: TEXT,
+  m3_q3: TEXT,
+  m3_q4: TEXT,
+  m3_q5: TEXT,
+  m4_q1: TEXT,
+  m4_q2: TEXT,
+  m4_q3: TEXT,
+  m4_q4: TEXT,
+  m4_q5: TEXT,
+  m4_q6: TEXT,
+  m4_q7: TEXT,
+  m4_q8: TEXT,
+  m4_q9: TEXT,
+  m4_q10: TEXT,
+  m4_q11: TEXT,
+  m4_q12: TEXT,
+  m4_q13: TEXT,
+  m5_q1: TEXT,
+  m5_q2: TEXT,
+  m5_q3: TEXT,
+  training_completed: BOOLEAN,
+  training_approved: BOOLEAN,
+  member_id, INTEGER // foreign key
+}
+```
 ## Actions
 
 `add(data)` -> Insert a foster neighbor, family, or admin account
