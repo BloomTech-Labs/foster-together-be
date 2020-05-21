@@ -63,7 +63,11 @@ describe('/training', () => {
 
     describe('DELETE /training/:id', () => {
         test('should respond with a status 200 and delete a specific user', async () => {
+            const res = await request(server)
+                .delete('/training/1')
 
+                expect(res.status).toBe(200)
+                expect(JSON.parse(res.text).error).toBe(undefined)
         })
     })
 
