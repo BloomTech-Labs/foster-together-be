@@ -40,8 +40,7 @@ describe('/training', () => {
         test('should return an array of all neighbor training tables', async () => {
             const res = await request(server)
                 .get('/training')
-
-                expect(res.body).toBeFalsy()
+                expect(res.body).toBeTruthy()
         } )
     })
 
@@ -50,17 +49,23 @@ describe('/training', () => {
             let dummyData = Date.now()
 
             const res = await request(server)
-                .put('/training')
+                .put('/training/update')
                 .send({
                     member_id: 1,
                     changes: {
-                        module1_q1: dummyData
+                        m1_q1: dummyData
                     }
                 })
 
-                console.log(res)
-
-                expect(res.body.module1_q1).toBe(dummyData)
+                expect(Number(res.body.m1_q1)).toEqual(dummyData)
         })
     })
+
+    describe('DELETE /training/:id', () => {
+        test('should respond with a status 200 and delete a specific user', async () => {
+
+        })
+    })
+
+    
 })
