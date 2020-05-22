@@ -154,7 +154,16 @@ To get the server running locally:
 | POST   | `/members/:membertype`     | all     | Add a new foster neighbor. Requires `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `state`, and `zip`. |
 | PUT    | `/members/:id` | admins                | Update the contact information for a foster neighbor.                                                                   |
 | DELETE | `/members/:id` | admins                | Delete a foster neighbor.                                                                                               |
-|
+
+#### Neighbor Training Routes
+
+| Method | Endpoint             | Access Control        | Description                                                                                                             |
+| ------ | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/training/start`    | user                  | Adds a new training table for a user if one does not already exist |
+| PUT    | `/training/update`   | user                  | Updates fields in user's training table and returns updated table |
+| GET    | `/training/:id`      | user                  | Returns user's training table |
+| GET    | `/training/`         | user                  | Returns all users' training tables |
+| DELETE | `/training/:id`      | user                  | Deletes a user's training table |
 
 # Data Model
 
@@ -250,6 +259,51 @@ To get the server running locally:
 }
 ```
 
+#### NEIGHBOR TRAINING
+
+
+---
+
+```
+{
+  id: INCREMENT, // primary key
+  m1_q1: TEXT,
+  m1_q2: TEXT,
+  m2_q1: TEXT,
+  m2_q2: TEXT,
+  m2_q3: INTEGER,
+  m2_q4: BOOLEAN,
+  m2_q5: INTEGER,
+  m2_q6: TEXT,
+  m2_q7: BOOLEAN,
+  m2_q8: BOOLEAN,
+  m2_q9: TEXT,
+  m3_q1: TEXT,
+  m3_q2: TEXT,
+  m3_q3: TEXT,
+  m3_q4: TEXT,
+  m3_q5: TEXT,
+  m4_q1: TEXT,
+  m4_q2: TEXT,
+  m4_q3: TEXT,
+  m4_q4: TEXT,
+  m4_q5: TEXT,
+  m4_q6: TEXT,
+  m4_q7: TEXT,
+  m4_q8: TEXT,
+  m4_q9: TEXT,
+  m4_q10: TEXT,
+  m4_q11: TEXT,
+  m4_q12: TEXT,
+  m4_q13: TEXT,
+  m5_q1: TEXT,
+  m5_q2: TEXT,
+  m5_q3: TEXT,
+  training_completed: BOOLEAN,
+  training_approved: BOOLEAN,
+  member_id, INTEGER // foreign key
+}
+```
 ## Actions
 
 `add(data)` -> Insert a foster neighbor, family, or admin account

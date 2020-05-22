@@ -10,8 +10,7 @@ router.post('/start', (req, res) => {
         .then(member => {
             res.status(201).json(member);
         })
-        .catch(err => {
-            console.log(err);
+        .catch(err => {            
             res.status(500).json({
                 error: "There was an error initializing training"
             })
@@ -19,7 +18,7 @@ router.post('/start', (req, res) => {
 })
 
 router.put('/update', (req, res) => {
-    NeighborTraining.update(req.member_id, req.changes)
+    NeighborTraining.update(req.body.member_id, req.body.changes)
         .then(neighbor => {
             res.status(200).json(neighbor)
         })
