@@ -21,7 +21,7 @@ function add(member_id) {
     return db('neighbor_training')
         .insert(newTraining)
         .then(ids => {
-            return db('neighbor_training')  //findTrainingByUserId(ids[0])
+            return db('neighbor_training')
         })
 }
 
